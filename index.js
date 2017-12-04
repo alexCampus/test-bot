@@ -35,7 +35,7 @@ restService.post('/map', function(req, resp) {
 
         rp(options)
             .then(function(res) {
-                console.log('test => ', req.body.result.parameters);
+                console.log('test => ', req.body.result);
                 if (res[0].id == '') {
                     console.log('test if => ', res);
                     speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
