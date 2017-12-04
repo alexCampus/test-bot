@@ -23,7 +23,8 @@ restService.post('/echo', function(req, res) {
 });
 
 restService.post('/map', function(req, resp) {
-
+    let parameters = {};
+    let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     var options = {
         uri: configuration.fnaimUrlLocalization,
@@ -48,9 +49,17 @@ restService.post('/map', function(req, resp) {
                 displayText: speech,
                 source: 'webhook-echo-sample'
             });
+            parameters.localites = res[0];
+            parameters.TYPE = req.body.result.contexts[4].parameters.GoodType[0];
+            parameters.NB_PIECES = req.body.result.contexts[4].parameters.nbRoom;
+            parameters.SURFACE_MIN = req.body.result.contexts[4].parameters.minArea;
+            parameters.PRIX_MAX = req.body.result.contexts[4].parameters.maxPrice;
             var choiceWebservice = rp({
                 url: url,
                 qs: parameters
+            });
+            choiceWebservice.then(function (result) {
+                console.log('response =>', result);
             });
         })
         .catch(function (err) {
