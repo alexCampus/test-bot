@@ -34,8 +34,12 @@ restService.post('/map', function(req, res) {
     }
 
     rp(options)
-        .then(function(repos) {
-            console.log('test => ', repos);
+        .then(function(res) {
+            console.log('test => ', res);
+            if (res[0].id == '') {
+                throw Error();
+            }
+            speech = res[0].label;
         })
         .catch(function (err) {
            console.log(err);
