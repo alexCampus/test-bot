@@ -43,7 +43,7 @@ restService.post('/map', function(req, resp) {
                 console.log('test else => ', res);
                 speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[5].parameters.GoodType[0] + ' de ' + req.body.result.contexts[5].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[5].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[5].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[5].parameters.location;
             }
-            return resp.json({
+            resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
