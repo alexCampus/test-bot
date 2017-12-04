@@ -61,8 +61,11 @@ restService.post('/map', function(req, resp) {
             choiceWebservice.then(function (result) {
                 console.log('response =>', result);
                 resp.json({
-                    speech: result,
-                    displayText: result,
+                    speech: speech,
+                    displayText: speech,
+                    data: {
+                        facebook: result
+                    },
                     source: 'webhook-echo-sample'
                 });
             });
