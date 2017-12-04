@@ -23,36 +23,38 @@ restService.post('/echo', function(req, res) {
 });
 
 restService.post('/map', function(req, resp) {
+    if (req.body.result.parameters.location) {
+        var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+        var options = {
+            uri: configuration.fnaimUrlLocalization,
+            qs: {
+                term: speech
+            },
+            json: true
+        }
 
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
-    var options = {
-        uri: configuration.fnaimUrlLocalization,
-        qs: {
-            term: speech
-        },
-        json: true
+        rp(options)
+            .then(function(res) {
+                console.log('test => ', req);
+                if (res[0].id == '') {
+                    console.log('test if => ', res);
+                    speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
+                } else {
+                    console.log('test else => ', res);
+                    speech = res[0].label;
+                }
+                return resp.json({
+                    speech: speech,
+                    displayText: speech,
+                    source: 'webhook-echo-sample'
+                });
+            })
+            .catch(function (err) {
+                speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
+                console.log(err);
+            });
     }
 
-    rp(options)
-        .then(function(res) {
-            console.log('test => ', res[0].id);
-            if (res[0].id == '') {
-                console.log('test if => ', res);
-                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
-            } else {
-                console.log('test else => ', res);
-                speech = res[0].label;
-            }
-            return resp.json({
-                speech: speech,
-                displayText: speech,
-                source: 'webhook-echo-sample'
-            });
-        })
-        .catch(function (err) {
-            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
-           console.log(err);
-        });
     //
     // rp({
     //     url: configuration.fnaimUrlLocalization,
