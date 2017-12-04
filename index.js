@@ -25,6 +25,21 @@ restService.post('/echo', function(req, res) {
 restService.post('/map', function(req, res) {
 
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    var options = {
+        uri: configuration.fnaimUrlLocalization,
+        qs: {
+            term: speech
+        },
+        json: true
+    }
+
+    rp(options)
+        .then(function(repos) {
+            console.log('test => ', repos);
+        })
+        .catch(function (err) {
+           console.log(err);
+        });
     //
     // rp({
     //     url: configuration.fnaimUrlLocalization,
