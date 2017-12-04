@@ -40,8 +40,8 @@ restService.post('/map', function(req, res) {
     //     }
     // });
     return res.json({
-        speech: 'Hello my friend',
-        displayText: 'Hello my friend',
+        speech: speech,
+        displayText: speech,
         source: 'webhook-echo-sample'
     });
 });
