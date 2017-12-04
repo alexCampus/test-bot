@@ -40,6 +40,7 @@ restService.post('/map', function(req, res) {
                 console.log('test if => ', res);
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
+                console.log('test else => ', res);
                 speech = res[0].label;
             }
         })
