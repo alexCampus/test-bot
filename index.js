@@ -37,11 +37,13 @@ restService.post('/map', function(req, res) {
         .then(function(res) {
             console.log('test => ', res);
             if (res[0].id == '') {
+                speech = "Désolé jue n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
                 throw Error();
             }
             speech = res[0].label;
         })
         .catch(function (err) {
+            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
            console.log(err);
         });
     //
