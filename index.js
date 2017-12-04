@@ -24,7 +24,7 @@ restService.post('/echo', function(req, res) {
 
 restService.post('/map', function(req, res) {
 
-    // var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     //
     // rp({
     //     url: configuration.fnaimUrlLocalization,
