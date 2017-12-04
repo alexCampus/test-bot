@@ -41,7 +41,7 @@ restService.post('/map', function(req, resp) {
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
                 console.log('test else => ', res);
-                speech = res[0].label;
+                speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[0].GoodType + ' de ' + req.body.result.contexts[0]nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[0].minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[0].maxPrice + ' dans le secteur de ' + req.body.result.contexts[0].location;
             }
             return resp.json({
                 speech: speech,
