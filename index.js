@@ -37,14 +37,6 @@ restService.post('/map', function(req, res) {
             return [res[0].id, res[0].label, res[0].type];
         }
     });
-    return res.json({
-        speech: 'Hello my friend',
-        displayText: 'Hello my friend',
-        source: 'webhook-echo-sample',
-        data: {
-            facebook: rp
-        }
-    });
 });
 
 restService.post('/music', function(req, res) {
