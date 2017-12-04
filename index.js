@@ -22,7 +22,7 @@ restService.post('/echo', function(req, res) {
     });
 });
 
-restService.post('/map', function(req, res) {
+restService.post('/map', function(req, resp) {
 
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     var options = {
@@ -43,7 +43,7 @@ restService.post('/map', function(req, res) {
                 console.log('test else => ', res);
                 speech = res[0].label;
             }
-            return res.json({
+            return resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
