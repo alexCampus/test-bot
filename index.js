@@ -23,27 +23,26 @@ restService.post('/echo', function(req, res) {
 });
 
 restService.post('/map', function(req, res) {
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
-    rp({
-        url: configuration.fnaimUrlLocalization,
-        qs: {
-            term: value.text
-        },
-        json: true,
-        transform: function (res) {
-            if (res[0].id == '') {
-                throw Error();
-            }
-            return [res[0].id, res[0].label, res[0].type];
-        }
-    });
+
+    // var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    //
+    // rp({
+    //     url: configuration.fnaimUrlLocalization,
+    //     qs: {
+    //         term: value.text
+    //     },
+    //     json: true,
+    //     transform: function (res) {
+    //         if (res[0].id == '') {
+    //             throw Error();
+    //         }
+    //         return [res[0].id, res[0].label, res[0].type];
+    //     }
+    // });
     return res.json({
         speech: 'Hello my friend',
         displayText: 'Hello my friend',
-        source: 'webhook-echo-sample',
-        data: {
-            facebook: rp
-        }
+        source: 'webhook-echo-sample'
     });
 });
 
