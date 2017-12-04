@@ -35,18 +35,22 @@ restService.post('/map', function(req, resp) {
 
     rp(options)
         .then(function(res) {
-            console.log('test => ', req.body.result.contexts[5]);
+            console.log('test => ', req.body.result.contexts[4]);
             if (res[0].id == '') {
                 console.log('test if => ', res);
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
                 console.log('test else => ', res);
-                speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[5].parameters.GoodType[0] + ' de ' + req.body.result.contexts[5].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[5].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[5].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[5].parameters.location;
+                speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
             resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
+            });
+            var choiceWebservice = rp({
+                url: url,
+                qs: parameters
             });
         })
         .catch(function (err) {
