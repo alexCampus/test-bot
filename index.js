@@ -60,6 +60,11 @@ restService.post('/map', function(req, resp) {
             });
             choiceWebservice.then(function (result) {
                 console.log('response =>', result);
+                resp.json({
+                    speech: result,
+                    displayText: result,
+                    source: 'webhook-echo-sample'
+                });
             });
         })
         .catch(function (err) {
