@@ -2,6 +2,8 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const rp = require('request-promise');
+const configuration = require('./configuration.js');
 
 const restService = express();
 
@@ -17,6 +19,31 @@ restService.post('/echo', function(req, res) {
         speech: 'Hello my friend',
         displayText: 'Hello my friend',
         source: 'webhook-echo-sample'
+    });
+});
+
+restService.post('/map', function(req, res) {
+    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    rp({
+        url: configuration.fnaimUrlLocalization,
+        qs: {
+            term: value.text
+        },
+        json: true,
+        transform: function (res) {
+            if (res[0].id == '') {
+                throw Error();
+            }
+            return [res[0].id, res[0].label, res[0].type];
+        }
+    });
+    return res.json({
+        speech: 'Hello my friend',
+        displayText: 'Hello my friend',
+        source: 'webhook-echo-sample',
+        data: {
+            facebook: rp
+        }
     });
 });
 
@@ -96,7 +123,7 @@ restService.post('/slack-test', function(req, res) {
         displayText: "speech",
         source: 'webhook-echo-sample',
         data: {
-            "slack": slack_message
+            "facebook": slack_message
         }
     });
 });
