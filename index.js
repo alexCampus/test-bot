@@ -43,6 +43,11 @@ restService.post('/map', function(req, res) {
                 console.log('test else => ', res);
                 speech = res[0].label;
             }
+            return res.json({
+                speech: speech,
+                displayText: speech,
+                source: 'webhook-echo-sample'
+            });
         })
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
@@ -62,11 +67,7 @@ restService.post('/map', function(req, res) {
     //         return [res[0].id, res[0].label, res[0].type];
     //     }
     // });
-    return res.json({
-        speech: speech,
-        displayText: speech,
-        source: 'webhook-echo-sample'
-    });
+
 });
 
 restService.post('/music', function(req, res) {
