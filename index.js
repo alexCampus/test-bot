@@ -51,25 +51,17 @@ restService.post('/map', function(req, resp) {
                 speech = res;
                 // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
+            return speech;
+        })
+        .then(function(speech) {
+            console.log(speech);
             resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
             });
         })
-        .catch(function (err) {
-            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie.";
-            resp.json({
-                speech: speech,
-                displayText: speech,
-                source: 'webhook-echo-sample'
-            });
-        })
-    resp.json({
-        speech: 'Tout va bien se passer',
-        displayText: 'Tout va bien se passer',
-        source: 'webhook-echo-sample'
-    });
+
 
 });
 
