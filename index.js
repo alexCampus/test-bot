@@ -68,9 +68,9 @@ restService.post('/map', function(req, resp) {
                 let data = {};
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                console.log('RESULT =>', resultats.prevObject.jQuery);
-                console.log('RESULT =>', resultats.prevObject.length);
-                if (resultats.prevObject.length == 0) {
+                console.log('RESULT =>', resultats);
+                console.log('RESULT =>', resultats.length);
+                if (resultats.length == 0) {
                     console.log('NO RESULT');
                     data = {
                         attachment : {
@@ -78,6 +78,10 @@ restService.post('/map', function(req, resp) {
                             payload : {
                                 template_type : "generic",
                                 elements : [
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                    },
                                     {
                                         "title" : "No Result",
                                         "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
