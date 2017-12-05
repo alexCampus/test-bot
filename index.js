@@ -102,18 +102,6 @@ restService.post('/map', function(req, resp) {
                 resp.json({
                     speech: speech,
                     displayText: speech,
-                    data : {
-                        facebook :
-                            {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: data
-                                    }
-                                }
-                            }
-                    },
                     source: 'webhook-echo-sample'
                 });
             });
