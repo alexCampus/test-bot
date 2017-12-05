@@ -59,7 +59,7 @@ restService.post('/map', function(req, resp) {
                 qs: parameters
             });
             choiceWebservice.then(function (result) {
-                console.log('response =>', result);
+                // console.log('response =>', result);
                 resp.json({
                     speech: speech,
                     displayText: speech,
