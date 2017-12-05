@@ -68,7 +68,7 @@ restService.post('/map', function(req, resp) {
                 let data = {};
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                console.log('RESULT =>', resultats);
+                // console.log('RESULT =>', resultats);
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
@@ -117,7 +117,7 @@ restService.post('/map', function(req, resp) {
                     speech: speech,
                     displayText: speech,
                     data : {
-                        facebook : finalData
+                        facebook : data
                     },
                     source: 'webhook-echo-sample'
                 });
