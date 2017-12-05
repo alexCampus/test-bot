@@ -61,6 +61,78 @@ restService.post('/map', function(req, resp) {
             parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
             parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
             console.log('parameters => ', parameters);
+            choiceWebservice = rp({
+                url: url,
+                qs: parameters
+            });
+            choiceWebservice.then(function (result) {
+                // console.log('response =>', result);
+                let $response = $(result);
+                let data = {};
+
+                let resultats = $('.annonce_liste ul.liste li.item', $response);
+                // console.log('RESULT =>', resultats);
+                console.log('RESULT =>', resultats.length);
+                if (resultats.length == 0) {
+                    console.log('NO RESULT');
+                    data = {
+                        attachment : {
+                            type : "template",
+                            payload : {
+                                template_type : "generic",
+                                elements : [
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                    },
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                } else {
+                    resultats.each(function (index) {
+                        if (index < 3) {
+                            data = {
+                                title: $('h3 a', this).html(),
+                                image_url: $('.itemImage img', this).attr("src"),
+                                url: $('h3 a', this).attr("href")
+                            };
+
+                            finalData.push(data);
+                        }
+                    });
+                    resp.json({
+                        speech: speech,
+                        displayText: speech,
+                        data : {
+                            facebook : {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: [
+                                            {
+                                                "title" : "No Result",
+                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                            },
+                                            {
+                                                "title" : "No Result",
+                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        source: 'webhook-echo-sample'
+                    });
+                    console.log('RESULT =>', finalData);
+                }
+            });
 
         })
         .catch(function (err) {
@@ -68,69 +140,7 @@ restService.post('/map', function(req, resp) {
             console.log(err);
         });
 
-    choiceWebservice = rp({
-        url: url,
-        qs: parameters
-    });
-    choiceWebservice.then(function (result) {
-        // console.log('response =>', result);
-        let $response = $(result);
-        let data = {};
 
-        let resultats = $('.annonce_liste ul.liste li.item', $response);
-        // console.log('RESULT =>', resultats);
-        console.log('RESULT =>', resultats.length);
-        if (resultats.length == 0) {
-            console.log('NO RESULT');
-            data = {
-                attachment : {
-                    type : "template",
-                    payload : {
-                        template_type : "generic",
-                        elements : [
-                            {
-                                "title" : "No Result",
-                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                            },
-                            {
-                                "title" : "No Result",
-                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                            }
-                        ]
-                    }
-                }
-            }
-        } else {
-            resultats.each(function (index) {
-                if (index < 3) {
-                    data = {
-                        title: $('h3 a', this).html(),
-                        image_url: $('.itemImage img', this).attr("src"),
-                        url: $('h3 a', this).attr("href")
-                    };
-
-                    finalData.push(data);
-                }
-            });
-            resp.json({
-                speech: speech,
-                displayText: speech,
-                data : {
-                    facebook : {
-                        attachment: {
-                            type: "template",
-                            payload: {
-                                template_type: "generic",
-                                elements: finalData
-                            }
-                        }
-                    }
-                },
-                source: 'webhook-echo-sample'
-            });
-            console.log('RESULT =>', finalData);
-        }
-    });
     //
     // rp({
     //     url: configuration.fnaimUrlLocalization,
