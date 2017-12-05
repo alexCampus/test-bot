@@ -63,8 +63,21 @@ restService.post('/map', function(req, resp) {
                 resp.json({
                     speech: speech,
                     displayText: speech,
-                    data: {
-                        facebook: result
+                    data : {
+                        facebook : {
+                            attachment : {
+                                type : "template",
+                                payload : {
+                                    template_type : "generic",
+                                    elements : [
+                                        {
+                                            "title" : "Hello I am the card",
+                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     },
                     source: 'webhook-echo-sample'
                 });
