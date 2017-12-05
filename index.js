@@ -37,14 +37,30 @@ restService.post('/map', function(req, resp) {
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
                 console.log('test else');
-                speech = res.data[0].label;
+                speech = res.data[0];
                 // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
-            resp.json({
-                speech: speech,
-                displayText: speech,
-                source: 'webhook-echo-sample'
-            });
+            return speech;
+            // resp.json({
+            //     speech: speech,
+            //     displayText: speech,
+            //     source: 'webhook-echo-sample'
+            // });
+        })
+        .then(function(speech){
+            parameters.localites = speech;
+            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
+            parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
+            parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
+            parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            axios.get(configuration.fnaimUrlBuy, {
+                params: parameters,
+                paramsSerializer: function(params) {
+                    return qs.stringify(params, { indices: false })
+                }
+            }).then(function(result){
+                console.log(result.data);
+            })
         })
         .catch(function (error) {
             console.log(error);
