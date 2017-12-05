@@ -6,12 +6,8 @@ const rp = require('request-promise');
 const configuration = require('./configuration.js');
 
 const restService = express();
-// Load jsdom, and create a window.
-const jsdom = require("jsdom").jsdom;
-const doc = jsdom();
-const window = doc.defaultView;
-// Load jQuery with the simulated jsdom window.
-const $ = require('jquery')(window);
+const jsdom = require("jsdom");
+const $ = require("jquery")(jsdom.jsdom().defaultView);
 
 
 restService.use(bodyParser.urlencoded({
