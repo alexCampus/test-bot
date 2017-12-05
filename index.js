@@ -54,7 +54,7 @@ restService.post('/map', function(req, resp) {
             // });
 
             parameters.localites = '[{"label":"' + res[0].label + '","value":"' + res[0].label + '","id":"' + res[0].id + '","type":"' + res[0].type + '"}]';
-            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0]);
+            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
             parameters.NB_PIECES = parseInt(req.body.result.contexts[0].parameters.nbRoom);
             parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
             parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
