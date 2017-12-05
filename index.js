@@ -59,90 +59,91 @@ restService.post('/map', function(req, resp) {
             console.log(err);
         })
         .finally(function (){
-            console.log(speech);
+            console.log('SPEECH => ', speech);
+            parameters.localites = '[{"label":"' + speech[0].label + '","value":"' + speech[0].label + '","id":"' + speech[0].id + '","type":"' + speech[0].type + '"}]';
+            parameters.TYPE = [2];
+            parameters.NB_PIECES = [parseInt(req.body.result.contexts[0].parameters.nbRoom)];
+            parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
+            parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
+            console.log('parameters => ', parameters);
+            var choiceWebservice = {
+                url: url,
+                qs: parameters
+            };
+            rp(choiceWebservice)
+                .then(function (result) {
+                    // console.log('response =>', result);
+                    let $response = $(result);
+                    let data = {};
+                    let finalData = [];
+                    let resultats = $('.annonce_liste ul.liste li.item', $response);
+                    // console.log('RESULT =>', resultats);
+                    console.log('RESULT =>', resultats.length);
+                    if (resultats.length == 0) {
+                        console.log('NO RESULT');
+                        data = {
+                            attachment : {
+                                type : "template",
+                                payload : {
+                                    template_type : "generic",
+                                    elements : [
+                                        {
+                                            "title" : "No Result",
+                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        },
+                                        {
+                                            "title" : "No Result",
+                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    } else {
+                        resultats.each(function (index) {
+                            if (index < 3) {
+                                data = {
+                                    title: $('h3 a', this).html(),
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    url: $('h3 a', this).attr("href")
+                                };
+
+                                finalData.push(data);
+                            }
+                        })
+                        console.log('RESULT =>', finalData);
+                    }
+                    resp.json({
+                        speech: speech,
+                        displayText: speech,
+                        data : {
+                            facebook : {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: [
+                                            {
+                                                "title" : " Result",
+                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                            },
+                                            {
+                                                "title" : " Result",
+                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        source: 'webhook-echo-sample'
+                    });
+                });
         });
 
 
 
-    // parameters.localites = '[{"label":"' + speech[0].label + '","value":"' + speech[0].label + '","id":"' + speech[0].id + '","type":"' + speech[0].type + '"}]';
-    // parameters.TYPE = [2];
-    // parameters.NB_PIECES = [parseInt(req.body.result.contexts[0].parameters.nbRoom)];
-    // parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
-    // parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
-    // console.log('parameters => ', parameters);
-    // var choiceWebservice = {
-    //     url: url,
-    //     qs: parameters
-    // };
-    // rp(choiceWebservice)
-    //     .then(function (result) {
-    //         // console.log('response =>', result);
-    //         let $response = $(result);
-    //         let data = {};
-    //         let finalData = [];
-    //         let resultats = $('.annonce_liste ul.liste li.item', $response);
-    //         // console.log('RESULT =>', resultats);
-    //         console.log('RESULT =>', resultats.length);
-    //         if (resultats.length == 0) {
-    //             console.log('NO RESULT');
-    //             data = {
-    //                 attachment : {
-    //                     type : "template",
-    //                     payload : {
-    //                         template_type : "generic",
-    //                         elements : [
-    //                             {
-    //                                 "title" : "No Result",
-    //                                 "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-    //                             },
-    //                             {
-    //                                 "title" : "No Result",
-    //                                 "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-    //                             }
-    //                         ]
-    //                     }
-    //                 }
-    //             }
-    //         } else {
-    //             resultats.each(function (index) {
-    //                 if (index < 3) {
-    //                     data = {
-    //                         title: $('h3 a', this).html(),
-    //                         image_url: $('.itemImage img', this).attr("src"),
-    //                         url: $('h3 a', this).attr("href")
-    //                     };
-    //
-    //                     finalData.push(data);
-    //                 }
-    //             })
-    //             console.log('RESULT =>', finalData);
-    //         }
-    //         resp.json({
-    //             speech: speech,
-    //             displayText: speech,
-    //             data : {
-    //                 facebook : {
-    //                     attachment: {
-    //                         type: "template",
-    //                         payload: {
-    //                             template_type: "generic",
-    //                             elements: [
-    //                                 {
-    //                                     "title" : " Result",
-    //                                     "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-    //                                 },
-    //                                 {
-    //                                     "title" : " Result",
-    //                                     "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-    //                                 }
-    //                             ]
-    //                         }
-    //                     }
-    //                 }
-    //             },
-    //             source: 'webhook-echo-sample'
-    //         });
-    //     });
+
 });
 
 restService.post('/music', function(req, res) {
