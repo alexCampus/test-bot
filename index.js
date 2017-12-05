@@ -92,7 +92,7 @@ restService.post('/map', function(req, resp) {
                         }
                     }
                 } else {
-                    resultats.prevObject.each(function (index) {
+                    resultats.each(function (index) {
                         if (index < 3) {
                             data = [
                                 {
