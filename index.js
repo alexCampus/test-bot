@@ -54,10 +54,7 @@ restService.post('/map', function(req, resp) {
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
             axios.get(configuration.fnaimUrlBuy, {
-                params: parameters,
-                paramsSerializer: function(params) {
-                    return qs.stringify(params, { indices: false })
-                }
+                params: parameters
             }).then(function(result){
                 console.log(result.data);
             })
