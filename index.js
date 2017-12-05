@@ -65,7 +65,7 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    resp.json({
+                    return resp.json({
                         speech: speech,
                         displayText: speech,
                         data : {
@@ -91,7 +91,7 @@ restService.post('/map', function(req, resp) {
                         source: 'webhook-echo-sample'
                     });
                 } else {
-                    resultats.prevObject.each(function (index) {
+                    resultats.each(function (index) {
                         if (index < 3) {
                             data = [
                                         {
