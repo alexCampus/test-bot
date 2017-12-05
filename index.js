@@ -54,7 +54,7 @@ restService.post('/map', function(req, resp) {
         })
         .then(function (speech) {
             console.log('speech .then', speech);
-            return res.json({
+            return resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
@@ -63,11 +63,6 @@ restService.post('/map', function(req, resp) {
         })
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
-            return res.json({
-                speech: speech,
-                displayText: speech,
-                source: 'webhook-echo-sample'
-            });
         })
 
 });
