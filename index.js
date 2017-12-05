@@ -27,6 +27,7 @@ restService.post('/echo', function(req, res) {
 
 restService.post('/map', function(req, resp) {
     let parameters = {};
+    let finalData = [];
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     var options = {
@@ -52,7 +53,7 @@ restService.post('/map', function(req, resp) {
             //     displayText: speech,
             //     source: 'webhook-echo-sample'
             // });
-            let finalData = [];
+
             parameters.localites = '[{"label":"' + res[0].label + '","value":"' + res[0].label + '","id":"' + res[0].id + '","type":"' + res[0].type + '"}]';
             parameters.TYPE = [2];
             parameters.NB_PIECES = [parseInt(req.body.result.contexts[0].parameters.nbRoom)];
