@@ -29,40 +29,67 @@ restService.post('/map', function(req, resp) {
     let parameters = {};
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
-    console.log('SPEECH =>',speech);
     var options = {
         uri: configuration.fnaimUrlLocalization,
         qs: {
             term: speech
         },
-        json: true,
-        timeout: 50000
-    }
+        json: true
+    };
 
     rp(options)
-        .then(function(res) {
-            console.log('test => ', req.body.result.contexts[0]);
+        .then(function (res) {
+            console.log('test => ', req.body.result.contexts[4]);
             if (res[0].id == '') {
-                // console.log('test if => ', res);
-                console.log('test IF');
-                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
+                console.log('test if => ', res);
+                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
                 console.log('test else => ', res);
-                speech = res;
                 // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
-            return speech;
-        })
-        .then(function(speech) {
-            console.log(speech);
             resp.json({
                 speech: speech,
                 displayText: speech,
                 source: 'webhook-echo-sample'
             });
+            parameters.localites = res[0];
+            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
+            parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
+            parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
+            parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            var choiceWebservice = rp({
+                url: url,
+                qs: parameters
+            });
+            choiceWebservice.then(function (result) {
+                // console.log('response =>', result);
+                resp.json({
+                    speech: speech,
+                    displayText: speech,
+                    data: {
+                        facebook: {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: [
+                                        {
+                                            "title": "Hello I am the card",
+                                            "image_url": "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    source: 'webhook-echo-sample'
+                });
+            });
         })
-
-
+        .catch(function (err) {
+            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
+            console.log(err);
+        });
 });
 
 restService.post('/music', function(req, res) {
