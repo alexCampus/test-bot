@@ -65,16 +65,12 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    data = [
+                    data = 
                                 {
                                     "title" : "No Result",
                                     "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                },
-                                {
-                                    "title" : "No Result",
-                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                }
-                            ];
+                                };
+
                     finalData.push(data);
                 } else {
                     resultats.prevObject.each(function (index) {
