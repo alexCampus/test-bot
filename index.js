@@ -65,6 +65,11 @@ restService.post('/map', function(req, resp) {
                 source: 'webhook-echo-sample'
             });
         })
+    resp.json({
+        speech: 'Tout va bien se passer',
+        displayText: 'Tout va bien se passer',
+        source: 'webhook-echo-sample'
+    });
 
 });
 
