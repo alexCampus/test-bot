@@ -6,6 +6,9 @@ const rp = require('request-promise');
 const configuration = require('./configuration.js');
 
 const restService = express();
+const jsdom = require("jsdom");
+const $ = require("jquery")(jsdom.jsdom().defaultView);
+
 
 restService.use(bodyParser.urlencoded({
     extended: true
@@ -60,24 +63,32 @@ restService.post('/map', function(req, resp) {
             });
             choiceWebservice.then(function (result) {
                 // console.log('response =>', result);
+                let $response = $(res);
+                let data = {};
+                let resultats = $('.annonce_liste ul.liste li.item', $response);
+                if (resultats.length == 0) {
+                    data = {
+                        attachment : {
+                            type : "template",
+                            payload : {
+                                template_type : "generic",
+                                elements : [
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                } else {
+                    console.log(resultats);
+                }
                 resp.json({
                     speech: speech,
                     displayText: speech,
                     data : {
-                        facebook : {
-                            attachment : {
-                                type : "template",
-                                payload : {
-                                    template_type : "generic",
-                                    elements : [
-                                        {
-                                            "title" : "Hello I am the card",
-                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
+                        facebook : data
                     },
                     source: 'webhook-echo-sample'
                 });
