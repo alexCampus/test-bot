@@ -44,7 +44,7 @@ restService.post('/map', function(req, resp) {
             if (res[0].id == '') {
                 // console.log('test if => ', res);
                 console.log('test IF');
-                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
+                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
             } else {
                 console.log('test else => ', res);
                 speech = res;
@@ -62,7 +62,12 @@ restService.post('/map', function(req, resp) {
             
         })
         .catch(function (err) {
-            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
+            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie.";
+            return resp.json({
+                speech: speech,
+                displayText: speech,
+                source: 'webhook-echo-sample'
+            });
         })
 
 });
