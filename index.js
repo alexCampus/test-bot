@@ -27,8 +27,6 @@ restService.post('/echo', function(req, res) {
 
 restService.post('/map', function(req, resp) {
     let parameters = {};
-    let finalData = [];
-    let choiceWebservice;
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     var options = {
@@ -61,7 +59,7 @@ restService.post('/map', function(req, resp) {
             parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
             parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
             console.log('parameters => ', parameters);
-            choiceWebservice = rp({
+            var choiceWebservice = rp({
                 url: url,
                 qs: parameters
             });
@@ -69,7 +67,7 @@ restService.post('/map', function(req, resp) {
                 // console.log('response =>', result);
                 let $response = $(result);
                 let data = {};
-
+                let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 // console.log('RESULT =>', resultats);
                 console.log('RESULT =>', resultats.length);
@@ -97,43 +95,42 @@ restService.post('/map', function(req, resp) {
                     resultats.each(function (index) {
                         if (index < 3) {
                             data = {
-                                title: $('h3 a', this).html(),
-                                image_url: $('.itemImage img', this).attr("src"),
-                                url: $('h3 a', this).attr("href")
-                            };
+                                    title: $('h3 a', this).html(),
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    url: $('h3 a', this).attr("href")
+                                };
 
                             finalData.push(data);
                         }
-                    });
-                    resp.json({
-                        speech: speech,
-                        displayText: speech,
-                        data : {
-                            facebook : {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: [
-                                            {
-                                                "title" : "No Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            },
-                                            {
-                                                "title" : "No Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        },
-                        source: 'webhook-echo-sample'
-                    });
+                    })
                     console.log('RESULT =>', finalData);
                 }
+                resp.json({
+                    speech: speech,
+                    displayText: speech,
+                    data : {
+                        facebook : {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: [
+                                        {
+                                            "title" : " Result",
+                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        },
+                                        {
+                                            "title" : " Result",
+                                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    source: 'webhook-echo-sample'
+                });
             });
-
         })
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
