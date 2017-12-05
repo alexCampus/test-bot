@@ -35,7 +35,8 @@ restService.post('/map', function(req, resp) {
         qs: {
             term: speech
         },
-        json: true
+        json: true,
+        timeout: 35000
     }
 
     rp(options)
