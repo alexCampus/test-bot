@@ -44,11 +44,11 @@ restService.post('/map', function(req, resp) {
                 console.log('test else => ', res);
                 // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
-            resp.json({
-                speech: speech,
-                displayText: speech,
-                source: 'webhook-echo-sample'
-            });
+            // resp.json({
+            //     speech: speech,
+            //     displayText: speech,
+            //     source: 'webhook-echo-sample'
+            // });
             parameters.localites = res[0];
             parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
