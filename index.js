@@ -65,64 +65,58 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    return resp.json({
-                        speech: speech,
-                        displayText: speech,
-                        data : {
-                            facebook : {
-                                attachment : {
-                                    type : "template",
-                                    payload : {
-                                        template_type : "generic",
-                                        elements : [
-                                            {
-                                                "title" : "No Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            },
-                                            {
-                                                "title" : "No Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            }
-                                        ]
+                    data = {
+                        attachment : {
+                            type : "template",
+                            payload : {
+                                template_type : "generic",
+                                elements : [
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                    },
+                                    {
+                                        "title" : "No Result",
+                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
                                     }
-                                }
+                                ]
                             }
-                        },
-                        source: 'webhook-echo-sample'
-                    });
+                        }
+                    }
                 } else {
                     resultats.each(function (index) {
                         if (index < 3) {
                             data = [
-                                        {
-                                            title: $('h3 a', this).html(),
-                                            image_url: $('.itemImage img', this).attr("src"),
-                                            url: $('h3 a', this).attr("href")
-                                        }
-                                    ];
+                                {
+                                    title: $('h3 a', this).html(),
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    url: $('h3 a', this).attr("href")
+                                }
+                            ];
 
                             finalData.push(data);
                         }
-                    });
+                    })
+                    console.log('RESULT =>', finalData);
                 }
-                console.log('RESULT =>', finalData);
-                // resp.json({
-                //     speech: speech,
-                //     displayText: speech,
-                //     data : {
-                //         facebook : {
-                //             attachment : {
-                //                 type : "template",
-                //                 payload : {
-                //                     template_type : "generic",
-                //                     elements : finalData
-                //                 }
-                //             }
-                //         }
-                //     },
-                //     source: 'webhook-echo-sample'
-                // });
-            })
+                resp.json({
+                    speech: speech,
+                    displayText: speech,
+                    data : {
+                        facebook :
+                            {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: data
+                                    }
+                                }
+                            }
+                    },
+                    source: 'webhook-echo-sample'
+                });
+            });
         })
         .catch(function (error) {
             console.log(error);
