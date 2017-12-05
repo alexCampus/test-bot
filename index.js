@@ -52,39 +52,39 @@ restService.post('/map', function(req, resp) {
                 displayText: speech,
                 source: 'webhook-echo-sample'
             });
-            parameters.localites = res[0];
-            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
-            parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
-            parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
-            parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
-            var choiceWebservice = rp({
-                url: url,
-                qs: parameters
-            });
-            choiceWebservice.then(function (result) {
-                // console.log('response =>', result);
-                resp.json({
-                    speech: speech,
-                    displayText: speech,
-                    data: {
-                        facebook: {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: [
-                                        {
-                                            "title": "Hello I am the card",
-                                            "image_url": "https://i.vimeocdn.com/portrait/58832_300x300"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    source: 'webhook-echo-sample'
-                });
-            });
+            // parameters.localites = res[0];
+            // parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
+            // parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
+            // parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
+            // parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            // var choiceWebservice = rp({
+            //     url: url,
+            //     qs: parameters
+            // });
+            // choiceWebservice.then(function (result) {
+            //     // console.log('response =>', result);
+            //     resp.json({
+            //         speech: speech,
+            //         displayText: speech,
+            //         data: {
+            //             facebook: {
+            //                 attachment: {
+            //                     type: "template",
+            //                     payload: {
+            //                         template_type: "generic",
+            //                         elements: [
+            //                             {
+            //                                 "title": "Hello I am the card",
+            //                                 "image_url": "https://i.vimeocdn.com/portrait/58832_300x300"
+            //                             }
+            //                         ]
+            //                     }
+            //                 }
+            //             }
+            //         },
+            //         source: 'webhook-echo-sample'
+            //     });
+            // });
         })
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
