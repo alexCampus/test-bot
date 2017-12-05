@@ -66,7 +66,8 @@ restService.post('/map', function(req, resp) {
                 let $response = $(result);
                 let data = {};
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                console.log('RESULT =>', resultats);
+                console.log('RESULT =>', resultats.prevObject.jQuery);
+                console.log('RESULT =>', resultats.prevObject);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
                     data = {
