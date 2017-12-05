@@ -63,7 +63,11 @@ restService.post('/map', function(req, resp) {
         })
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
-            console.log(err);
+            return res.json({
+                speech: speech,
+                displayText: speech,
+                source: 'webhook-echo-sample'
+            });
         })
 
 });
