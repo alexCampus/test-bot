@@ -105,22 +105,6 @@ restService.post('/map', function(req, resp) {
                     })
                     console.log('RESULT =>', finalData);
                 }
-                resp.json({
-                    speech: speech,
-                    displayText: speech,
-                    data : {
-                        facebook : {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: finalData
-                                }
-                            }
-                        }
-                    },
-                    source: 'webhook-echo-sample'
-                });
             });
         })
         .catch(function (err) {
@@ -128,7 +112,22 @@ restService.post('/map', function(req, resp) {
             console.log(err);
         });
 
-
+    resp.json({
+        speech: speech,
+        displayText: speech,
+        data : {
+            facebook : {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "generic",
+                        elements: finalData
+                    }
+                }
+            }
+        },
+        source: 'webhook-echo-sample'
+    });
     //
     // rp({
     //     url: configuration.fnaimUrlLocalization,
