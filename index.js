@@ -66,6 +66,7 @@ restService.post('/map', function(req, resp) {
                 // console.log('response =>', result);
                 let $response = $(result);
                 let data = {};
+                let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 console.log('RESULT =>', resultats.prevObject.jQuery);
                 console.log('RESULT =>', resultats.prevObject.length);
@@ -103,10 +104,10 @@ restService.post('/map', function(req, resp) {
                                     }
                                 }
                             }
-                            data.push(data);
+                            finalData.push(data);
                         }
                     })
-                    console.log('RESULT =>', data);
+                    console.log('RESULT =>', finalData);
                 }
                 resp.json({
                     speech: speech,
