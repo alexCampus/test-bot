@@ -94,21 +94,14 @@ restService.post('/map', function(req, resp) {
                 } else {
                     resultats.prevObject.each(function (index) {
                         if (index < 3) {
-                            data = {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: [
-                                            {
-                                                title: $('h3 a', this).html(),
-                                                image_url: $('.itemImage img', this).attr("src"),
-                                                url: $('h3 a', this).attr("href")
-                                            }
-                                        ]
-                                    }
+                            data = [
+                                {
+                                    title: $('h3 a', this).html(),
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    url: $('h3 a', this).attr("href")
                                 }
-                            }
+                            ];
+
                             finalData.push(data);
                         }
                     })
@@ -118,7 +111,16 @@ restService.post('/map', function(req, resp) {
                     speech: speech,
                     displayText: speech,
                     data : {
-                        facebook : data
+                        facebook :
+                        {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: finalData
+                                }
+                            }
+                        }
                     },
                     source: 'webhook-echo-sample'
                 });
