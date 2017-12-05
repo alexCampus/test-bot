@@ -66,8 +66,8 @@ restService.post('/map', function(req, resp) {
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
                     return resp.json({
-                        speech: speech,
-                        displayText: speech,
+                        speech: 'ok',
+                        displayText: 'ok',
                         source: 'webhook-echo-sample'
                     });
 
