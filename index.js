@@ -59,11 +59,12 @@ restService.post('/map', function(req, resp) {
             parameters.SURFACE_MIN = parseInt(req.body.result.contexts[0].parameters.minArea);
             parameters.PRIX_MAX = parseInt(req.body.result.contexts[0].parameters.maxPrice);
             console.log('parameters => ', parameters);
-            var choiceWebservice = rp({
+            var choiceWebservice = {
                 url: url,
                 qs: parameters
-            });
-            choiceWebservice.then(function (result) {
+            };
+            rp(choiceWebservice)
+                .then(function (result) {
                 // console.log('response =>', result);
                 let $response = $(result);
                 let data = {};
@@ -136,23 +137,6 @@ restService.post('/map', function(req, resp) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
             console.log(err);
         });
-
-
-    //
-    // rp({
-    //     url: configuration.fnaimUrlLocalization,
-    //     qs: {
-    //         term: value.text
-    //     },
-    //     json: true,
-    //     transform: function (res) {
-    //         if (res[0].id == '') {
-    //             throw Error();
-    //         }
-    //         return [res[0].id, res[0].label, res[0].type];
-    //     }
-    // });
-
 });
 
 restService.post('/music', function(req, res) {
