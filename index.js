@@ -66,7 +66,7 @@ restService.post('/map', function(req, resp) {
                 let $response = $(res);
                 let data = {};
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                if (resultats.length == 0) {
+                if (resultats.length === 0) {
                     data = {
                         attachment : {
                             type : "template",
