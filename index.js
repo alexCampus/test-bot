@@ -67,6 +67,7 @@ restService.post('/map', function(req, resp) {
                 let data = {};
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 if (resultats.length === 0) {
+                    console.log('NO RESULT');
                     data = {
                         attachment : {
                             type : "template",
@@ -82,7 +83,7 @@ restService.post('/map', function(req, resp) {
                         }
                     }
                 } else {
-                    console.log(resultats);
+                    console.log('RESULT =>', resultats);
                 }
                 resp.json({
                     speech: speech,
