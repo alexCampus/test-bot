@@ -52,7 +52,7 @@ restService.post('/map', function(req, resp) {
             //     displayText: speech,
             //     source: 'webhook-echo-sample'
             // });
-
+            let finalData = [];
             parameters.localites = '[{"label":"' + res[0].label + '","value":"' + res[0].label + '","id":"' + res[0].id + '","type":"' + res[0].type + '"}]';
             parameters.TYPE = [2];
             parameters.NB_PIECES = [parseInt(req.body.result.contexts[0].parameters.nbRoom)];
@@ -67,7 +67,7 @@ restService.post('/map', function(req, resp) {
                 // console.log('response =>', result);
                 let $response = $(result);
                 let data = {};
-                let finalData = [];
+
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 // console.log('RESULT =>', resultats);
                 console.log('RESULT =>', resultats.length);
