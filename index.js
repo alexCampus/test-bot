@@ -90,8 +90,8 @@ restService.post('/map', function(req, resp) {
                             finalData.push(data);
                         }
                     });
-                    console.log('RESULT =>', finalData);
                 }
+                console.log('RESULT =>', finalData);
                 resp.json({
                     speech: speech,
                     displayText: speech,
