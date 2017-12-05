@@ -63,7 +63,7 @@ restService.post('/map', function(req, resp) {
             });
             choiceWebservice.then(function (result) {
                 // console.log('response =>', result);
-                let $response = $(res);
+                let $response = $(result);
                 let data = {};
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 if (resultats.length === 0) {
