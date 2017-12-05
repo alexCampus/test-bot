@@ -56,8 +56,8 @@ restService.post('/map', function(req, resp) {
             axios.get(configuration.fnaimUrlBuy, {
                 params: parameters
             }).then(function(result){
-                console.log(result.data);
-                let $response = $(result);
+
+                let $response = $(result.data);
                 let data = {};
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
