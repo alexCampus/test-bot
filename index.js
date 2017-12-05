@@ -113,7 +113,7 @@ restService.post('/map', function(req, resp) {
                     speech: speech,
                     displayText: speech,
                     data : {
-                        facebook : data
+                        facebook : finalData
                     },
                     source: 'webhook-echo-sample'
                 });
