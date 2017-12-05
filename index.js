@@ -69,7 +69,7 @@ restService.post('/map', function(req, resp) {
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 console.log('RESULT =>', resultats.prevObject.jQuery);
                 console.log('RESULT =>', resultats.prevObject.length);
-                if (resultats.length == 0) {
+                if (resultats.prevObject.length == 0) {
                     console.log('NO RESULT');
                     data = {
                         attachment : {
@@ -86,7 +86,27 @@ restService.post('/map', function(req, resp) {
                         }
                     }
                 } else {
-                    console.log('RESULT =>', resultats);
+                    resultats.prevObject.each(function (index) {
+                        if (index < 3) {
+                            data = {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: [
+                                            {
+                                                title: $('h3 a', this).html(),
+                                                image_url: $('.itemImage img', this).attr("src"),
+                                                url: $('h3 a', this).attr("href")
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                            data.push(data);
+                        }
+                    })
+                    console.log('RESULT =>', data);
                 }
                 resp.json({
                     speech: speech,
