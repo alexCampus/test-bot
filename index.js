@@ -31,7 +31,7 @@ restService.post('/map', function(req, resp) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function (res){
-            console.log(res);
+            console.log(res.data);
             // if (res[0].id == '') {
             //     console.log('test if => ', res);
             //     speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
