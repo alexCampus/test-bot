@@ -112,32 +112,33 @@ restService.post('/map', function(req, resp) {
                             }
                         })
                         console.log('RESULT =>', finalData);
-                    }
-                    resp.json({
-                        speech: speech,
-                        displayText: speech,
-                        data : {
-                            facebook : {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: [
-                                            {
-                                                "title" : " Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            },
-                                            {
-                                                "title" : " Result",
-                                                "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                            }
-                                        ]
+                        resp.json({
+                            speech: speech,
+                            displayText: speech,
+                            data : {
+                                facebook : {
+                                    attachment: {
+                                        type: "template",
+                                        payload: {
+                                            template_type: "generic",
+                                            elements: [
+                                                {
+                                                    "title" : " Result",
+                                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                                },
+                                                {
+                                                    "title" : " Result",
+                                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                                }
+                                            ]
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        source: 'webhook-echo-sample'
-                    });
+                            },
+                            source: 'webhook-echo-sample'
+                        });
+                    }
+
                 });
         });
 
