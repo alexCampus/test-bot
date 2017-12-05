@@ -39,7 +39,7 @@ restService.post('/map', function(req, resp) {
 
     rp(options)
         .then(function(res) {
-            console.log('test => ', req.body.result.contexts[4]);
+            console.log('test => ', req.body.result.contexts[0]);
             if (res[0].id == '') {
                 console.log('test if => ', res);
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
@@ -57,6 +57,7 @@ restService.post('/map', function(req, resp) {
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            console.log('parameters => ', parameters);
             var choiceWebservice = rp({
                 url: url,
                 qs: parameters
@@ -67,7 +68,7 @@ restService.post('/map', function(req, resp) {
                 let data = {};
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 console.log('RESULT =>', resultats.prevObject.jQuery);
-                console.log('RESULT =>', resultats.prevObject);
+                console.log('RESULT =>', resultats.prevObject.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
                     data = {
