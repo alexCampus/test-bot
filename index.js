@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const rp = require('request-promise');
 const configuration = require('./configuration.js');
-
+const axios = require('axios');
 const restService = express();
 const jsdom = require("jsdom");
 const $ = require("jquery")(jsdom.jsdom().defaultView);
@@ -29,22 +29,14 @@ restService.post('/map', function(req, resp) {
     let parameters = {};
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
-    var options = {
-        uri: configuration.fnaimUrlLocalization,
-        qs: {
-            term: speech
-        },
-        json: true
-    };
-
-    rp(options)
-        .then(function (res) {
-            console.log('test => ', req.body.result.contexts[4]);
+    axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
+        .then(function (res){
             if (res[0].id == '') {
                 console.log('test if => ', res);
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
             } else {
                 console.log('test else => ', res);
+                speech = res[0].label;
                 // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
             }
             resp.json({
@@ -52,6 +44,33 @@ restService.post('/map', function(req, resp) {
                 displayText: speech,
                 source: 'webhook-echo-sample'
             });
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    // var options = {
+    //     uri: configuration.fnaimUrlLocalization,
+    //     qs: {
+    //         term: speech
+    //     },
+    //     json: true
+    // };
+    //
+    // rp(options)
+    //     .then(function (res) {
+    //         console.log('test => ', req.body.result.contexts[4]);
+    //         if (res[0].id == '') {
+    //             console.log('test if => ', res);
+    //             speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
+    //         } else {
+    //             console.log('test else => ', res);
+    //             // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
+    //         }
+    //         resp.json({
+    //             speech: speech,
+    //             displayText: speech,
+    //             source: 'webhook-echo-sample'
+    //         });
             // parameters.localites = res[0];
             // parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
             // parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
@@ -85,11 +104,11 @@ restService.post('/map', function(req, resp) {
             //         source: 'webhook-echo-sample'
             //     });
             // });
-        })
-        .catch(function (err) {
-            speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
-            console.log(err);
-        });
+        // })
+        // .catch(function (err) {
+        //     speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
+        //     console.log(err);
+        // });
 });
 
 restService.post('/music', function(req, res) {
