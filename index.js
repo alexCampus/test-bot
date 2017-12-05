@@ -65,24 +65,12 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    data = {
-                        attachment : {
-                            type : "template",
-                            payload : {
-                                template_type : "generic",
-                                elements : [
-                                    {
-                                        "title" : "No Result",
-                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                    },
-                                    {
-                                        "title" : "No Result",
-                                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                    }
-                                ]
-                            }
-                        }
-                    }
+                    return resp.json({
+                        speech: speech,
+                        displayText: speech,
+                        source: 'webhook-echo-sample'
+                    });
+
                 } else {
                     resultats.each(function (index) {
                         if (index < 3) {
@@ -99,11 +87,6 @@ restService.post('/map', function(req, resp) {
                     })
                     console.log('RESULT =>', finalData);
                 }
-                resp.json({
-                    speech: speech,
-                    displayText: speech,
-                    source: 'webhook-echo-sample'
-                });
             });
         })
         .catch(function (error) {
