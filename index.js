@@ -54,6 +54,11 @@ restService.post('/map', function(req, resp) {
         })
         .then(function (speech) {
             console.log('speech .then', speech);
+            return res.json({
+                speech: speech,
+                displayText: speech,
+                source: 'webhook-echo-sample'
+            });
             
         })
         .catch(function (err) {
