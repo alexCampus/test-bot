@@ -39,7 +39,7 @@ restService.post('/map', function(req, resp) {
 
     rp(options)
         .then(function(res) {
-            console.log('test => ', req.body.result.contexts[0]);
+            // console.log('test => ', req.body.result.contexts[0]);
             if (res[0].id == '') {
                 // console.log('test if => ', res);
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche."
@@ -57,8 +57,13 @@ restService.post('/map', function(req, resp) {
         .catch(function (err) {
             speech = "Il y a eu une erreur dans le process. Veuillez recommencer la saisie."
             console.log(err);
+        })
+        .finally(function (){
+            console.log(speech);
         });
-    console.log(speech);
+
+
+
     // parameters.localites = '[{"label":"' + speech[0].label + '","value":"' + speech[0].label + '","id":"' + speech[0].id + '","type":"' + speech[0].type + '"}]';
     // parameters.TYPE = [2];
     // parameters.NB_PIECES = [parseInt(req.body.result.contexts[0].parameters.nbRoom)];
