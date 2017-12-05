@@ -115,26 +115,6 @@ restService.post('/map', function(req, resp) {
                         resp.json({
                             speech: speech,
                             displayText: speech,
-                            data : {
-                                facebook : {
-                                    attachment: {
-                                        type: "template",
-                                        payload: {
-                                            template_type: "generic",
-                                            elements: [
-                                                {
-                                                    "title" : " Result",
-                                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                                },
-                                                {
-                                                    "title" : " Result",
-                                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            },
                             source: 'webhook-echo-sample'
                         });
                     }
