@@ -99,24 +99,27 @@ restService.post('/map', function(req, resp) {
                     })
                     console.log('finalData =>', finalData);
                 }
-                resp.json({
-                    speech: 'ok',
-                    displayText: 'ok',
-                    data : {
-                        facebook :
-                            {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: finalData
-                                    }
+                return finalData;
+        })
+        .then(function(finalData){
+            resp.json({
+                speech: 'ok',
+                displayText: 'ok',
+                data : {
+                    facebook :
+                        {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: finalData
                                 }
                             }
-                    },
-                    source: 'webhook-echo-sample'
-                });
+                        }
+                },
+                source: 'webhook-echo-sample'
             });
+        });
         })
         .catch(function (error) {
             console.log(error);
