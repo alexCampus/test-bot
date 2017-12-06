@@ -106,8 +106,7 @@ restService.post('/map', function(req, resp) {
                                 attachment: {
                                     type: "template",
                                     payload: {
-                                        template_type: "list",
-                                        top_element_style: "LARGE",
+                                        template_type: "generic",
                                         elements: [
                                             {
                                                 title : "No Result",
