@@ -116,7 +116,7 @@ restService.post('/map', function(req, resp) {
             //         },
             //         source: 'webhook-echo-sample'
             //     });
-            // });
+            });
         })
         .catch(function (error) {
             console.log(error);
