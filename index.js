@@ -87,13 +87,12 @@ restService.post('/map', function(req, resp) {
                 } else {
                     resultats.each(function (index) {
                         if (index < 3) {
-                            data = [
+                            data =
                                 {
                                     title: $('h3 a', this).html(),
                                     image_url: $('.itemImage img', this).attr("src"),
                                     url: $('h3 a', this).attr("href")
-                                }
-                            ];
+                                };
 
                             finalData.push(data);
                         }
