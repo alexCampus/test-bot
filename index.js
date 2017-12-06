@@ -27,7 +27,6 @@ restService.post('/echo', function(req, res) {
 
 restService.post('/map', function(req, resp) {
     let parameters = {};
-    let finalData = [];
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
@@ -61,6 +60,7 @@ restService.post('/map', function(req, resp) {
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
                 '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                 '&TYPE[]=' + parameters.TYPE +
@@ -70,16 +70,15 @@ restService.post('/map', function(req, resp) {
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
                 let $response = $(result.data);
                 let data;
-
+                let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                // console.log('RESULT =>', resultats.length);
+                console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
                     data =
                         {
-                            "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
-                            "url": "/annonce-immobiliere/40538838/17-acheter-appartement-meylan-38240.htm"
+                            "title" : "No Result",
+                            "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
                         };
 
                     finalData.push(data);
@@ -97,29 +96,26 @@ restService.post('/map', function(req, resp) {
 
                             finalData.push(data);
                         }
-                        if (index === 3) {
-
-                        }
                     })
-                    // console.log('finalData =>', finalData);
+                    console.log('finalData =>', finalData);
                 }
-            })
-            resp.json({
-                speech: 'ok',
-                displayText: 'ok',
-                data : {
-                    facebook :
-                        {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: finalData
+                resp.json({
+                    speech: 'ok',
+                    displayText: 'ok',
+                    data : {
+                        facebook :
+                            {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: finalData
+                                    }
                                 }
                             }
-                        }
-                },
-                source: 'webhook-echo-sample'
+                    },
+                    source: 'webhook-echo-sample'
+                });
             });
         })
         .catch(function (error) {
