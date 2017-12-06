@@ -77,7 +77,12 @@ restService.post('/map', function(req, resp) {
                     console.log('NO RESULT');
                     data = {
                         title : "No Result",
-                        image_url : "https://i.vimeocdn.com/portrait/58832_300x300"
+                        image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
+                        default_action: {
+                            type: "web_url",
+                            url: "www.fnaim.fr",
+                            webview_height_ratio: "tall"
+                        }
                     };
 
                     finalData.push(data);
