@@ -89,7 +89,7 @@ restService.post('/map', function(req, resp) {
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020020-3230871T01.jpg",
                         }];
 
-                    finalData.concat(data);
+                    data.concat(finalData);
                     console.log('finalData =>', finalData);
 
                 } else {
