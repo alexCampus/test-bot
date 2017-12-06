@@ -62,20 +62,20 @@ restService.post('/map', function(req, resp) {
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
             console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
-                '?localites=' + parameters.localites +
+                '?localites=[{label:' + parameters.localites.label + ',value:' + parameters.localites.value + ',id:' + parameters.localites.id + ',type:' + parameters.localites.type +
                 '&TYPE[]=' + parameters.TYPE +
                 '&NB_PIECES[]=' + parameters.NB_PIECES +
                 '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
                 console.log(configuration.fnaimUrlBuy +
-                    '?localites=' + parameters.localites +
+                    '?localites=[{label:' + parameters.localites.label + ',value:' + parameters.localites.value + ',id:' + parameters.localites.id + ',type:' + parameters.localites.type +
                     '&TYPE[]=' + parameters.TYPE +
                     '&NB_PIECES[]=' + parameters.NB_PIECES +
                     '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                     '&PRIX_MAX=' + parameters.PRIX_MAX +
                     '&TRANSACTION=1&submit=Recherche');
-                let $response = $(result);
+                let $response = $(result.data);
                 let data = {};
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
