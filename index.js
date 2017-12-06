@@ -79,12 +79,6 @@ restService.post('/map', function(req, resp) {
                         {
                             "title": "Appartement 2 pièce(s) - 68m² - RIVES",
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020124-3230873T01.jpg",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "/annonce-immobiliere/40538827/17-acheter-appartement-rives-38140.htm",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall"
-                            }
                         },
                         {
                             "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
