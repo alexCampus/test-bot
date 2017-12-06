@@ -94,7 +94,12 @@ restService.post('/map', function(req, resp) {
                             data =
                                 {
                                     title: $('h3 a', this).html(),
-                                    image_url: $('.itemImage img', this).attr("src")
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    default_action: {
+                                        type: "web_url",
+                                        url: $('h3 a', this).attr("href"),
+                                        webview_height_ratio: "tall"
+                                    }
                                 };
 
                             finalData.push(data);
