@@ -79,9 +79,7 @@ restService.post('/map', function(req, resp) {
                         "title" : "No Result",
                         "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300",
                         "default_action": {
-                            "type": "web_url",
-                            "url": "/annonce-immobiliere/40538838/17-acheter-appartement-meylan-38240.htm",
-                            "webview_height_ratio": "tall"
+                            "type": "web_url"
                         }
                     };
 
