@@ -68,72 +68,54 @@ restService.post('/map', function(req, resp) {
                 '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
-                console.log(configuration.fnaimUrlBuy +
-                    '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
-                    '&TYPE[]=' + parameters.TYPE +
-                    '&NB_PIECES[]=' + parameters.NB_PIECES +
-                    '&SURFACE_MIN=' + parameters.SURFACE_MIN +
-                    '&PRIX_MAX=' + parameters.PRIX_MAX +
-                    '&TRANSACTION=1&submit=Recherche');
                 let $response = $(result.data);
-                let data = {};
+                let data = [];
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                console.log('RESULT =>', resultats);
                 console.log('RESULT =>', resultats.length);
-            //     if (resultats.length == 0) {
-            //         console.log('NO RESULT');
-            //         data = {
-            //             attachment : {
-            //                 type : "template",
-            //                 payload : {
-            //                     template_type : "generic",
-            //                     elements : [
-            //                         {
-            //                             "title" : "No Result",
-            //                             "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-            //                         },
-            //                         {
-            //                             "title" : "No Result",
-            //                             "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
-            //                         }
-            //                     ]
-            //                 }
-            //             }
-            //         }
-            //     } else {
-            //         resultats.each(function (index) {
-            //             if (index < 3) {
-            //                 data = [
-            //                     {
-            //                         title: $('h3 a', this).html(),
-            //                         image_url: $('.itemImage img', this).attr("src"),
-            //                         url: $('h3 a', this).attr("href")
-            //                     }
-            //                 ];
-            //
-            //                 finalData.push(data);
-            //             }
-            //         })
-            //         console.log('RESULT =>', finalData);
-            //     }
-            //     resp.json({
-            //         speech: 'ok',
-            //         displayText: 'ok',
-            //         data : {
-            //             facebook :
-            //                 {
-            //                     attachment: {
-            //                         type: "template",
-            //                         payload: {
-            //                             template_type: "generic",
-            //                             elements: data
-            //                         }
-            //                     }
-            //                 }
-            //         },
-            //         source: 'webhook-echo-sample'
-            //     });
+                if (resultats.length == 0) {
+                    console.log('NO RESULT');
+                    data = [
+                                {
+                                    "title" : "No Result",
+                                    "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                }
+                            ]
+                    console.log('finalData =>', finalData);
+
+                } else {
+                    resultats.each(function (index) {
+                        if (index < 3) {
+                            data = [
+                                {
+                                    title: $('h3 a', this).html(),
+                                    image_url: $('.itemImage img', this).attr("src"),
+                                    url: $('h3 a', this).attr("href")
+                                }
+                            ];
+
+                            finalData.push(data);
+                        }
+                    })
+                    console.log('finalData =>', finalData);
+                }
+                resp.json({
+                    speech: 'ok',
+                    displayText: 'ok',
+                    data : {
+                        facebook :
+                            {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: finalData
+                                    }
+                                }
+                            }
+                    },
+                    source: 'webhook-echo-sample'
+                });
             });
         })
         .catch(function (error) {
