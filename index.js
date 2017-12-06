@@ -60,7 +60,6 @@ restService.post('/map', function(req, resp) {
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
-            console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
                 '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                 '&TYPE[]=' + parameters.TYPE +
@@ -72,7 +71,7 @@ restService.post('/map', function(req, resp) {
                 let data;
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
-                console.log('RESULT =>', resultats.length);
+                // console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
                     data =
@@ -97,7 +96,7 @@ restService.post('/map', function(req, resp) {
                             finalData.push(data);
                         }
                     })
-                    console.log('finalData =>', finalData);
+                    // console.log('finalData =>', finalData);
                 }
                 return finalData;
         })
