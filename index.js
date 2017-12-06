@@ -83,8 +83,7 @@ restService.post('/map', function(req, resp) {
                                 "type": "web_url",
                                 "url": "/annonce-immobiliere/40538827/17-acheter-appartement-rives-38140.htm",
                                 "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "/annonce-immobiliere/40538827/17-acheter-appartement-rives-38140.htm"
+                                "webview_height_ratio": "tall"
                             }
                         },
                         {
@@ -123,7 +122,8 @@ restService.post('/map', function(req, resp) {
                                 attachment: {
                                     type: "template",
                                     payload: {
-                                        template_type: "generic",
+                                        template_type: "list",
+                                        top_element_style: "LARGE",
                                         elements: data
                                     }
                                 }
