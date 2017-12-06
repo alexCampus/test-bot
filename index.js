@@ -53,6 +53,7 @@ restService.post('/map', function(req, resp) {
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            console.log(parameters);
             axios.get(configuration.fnaimUrlBuy, {
                 params: parameters
             }).then(function(result){
