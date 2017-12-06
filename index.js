@@ -75,21 +75,17 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    data = [
-                        {
-                            "title": "Appartement 2 pièce(s) - 68m² - RIVES",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739020124-3230873T01.jpg",
-                        },
-                        {
-                            "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
-                        },
-                        {
-                            "title": "Appartement 2 pièce(s) - 68m² - RIVES",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739020020-3230871T01.jpg",
-                        }];
+                    data = {
+                        "title" : "No Result",
+                        "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "/annonce-immobiliere/40538838/17-acheter-appartement-meylan-38240.htm",
+                            "webview_height_ratio": "tall"
+                        }
+                    };
 
-                    //finalData.concat(data);
+                    finalData.push(data);
                     console.log('finalData =>', data);
 
                 } else {
