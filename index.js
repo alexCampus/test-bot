@@ -27,6 +27,7 @@ restService.post('/echo', function(req, res) {
 
 restService.post('/map', function(req, resp) {
     let parameters = {};
+    let finalData = [];
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
@@ -69,7 +70,7 @@ restService.post('/map', function(req, resp) {
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
                 let $response = $(result.data);
                 let data;
-                let finalData = [];
+
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 // console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
