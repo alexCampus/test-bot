@@ -108,7 +108,7 @@ restService.post('/map', function(req, resp) {
                                     payload: {
                                         template_type: "list",
                                         top_element_style: "LARGE",
-                                        elements: finalData
+                                        elements: data
                                     }
                                 }
                             }
