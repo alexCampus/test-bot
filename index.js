@@ -108,10 +108,12 @@ restService.post('/map', function(req, resp) {
                                     payload: {
                                         template_type: "list",
                                         top_element_style: "LARGE",
-                                        elements: {
-                                            title : "No Result",
-                                            image_url : "https://i.vimeocdn.com/portrait/58832_300x300"
-                                        }
+                                        elements: [
+                                            {
+                                                title : "No Result",
+                                                image_url : "https://i.vimeocdn.com/portrait/58832_300x300"
+                                            }
+                                        ]
                                     }
                                 }
                             }
