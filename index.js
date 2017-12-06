@@ -69,7 +69,7 @@ restService.post('/map', function(req, resp) {
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
                 let $response = $(result.data);
-                let data = [];
+                let data;
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
                 console.log('RESULT =>', resultats.length);
