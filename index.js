@@ -95,30 +95,29 @@ restService.post('/map', function(req, resp) {
 
                             finalData.push(data);
                         }
+                        if (index === 3) {
+                            resp.json({
+                                speech: 'ok',
+                                displayText: 'ok',
+                                data : {
+                                    facebook :
+                                        {
+                                            attachment: {
+                                                type: "template",
+                                                payload: {
+                                                    template_type: "generic",
+                                                    elements: finalData
+                                                }
+                                            }
+                                        }
+                                },
+                                source: 'webhook-echo-sample'
+                            });
+                        }
                     })
                     // console.log('finalData =>', finalData);
                 }
-                return finalData;
-        })
-        .then(function(finalData){
-            resp.json({
-                speech: 'ok',
-                displayText: 'ok',
-                data : {
-                    facebook :
-                        {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: finalData
-                                }
-                            }
-                        }
-                },
-                source: 'webhook-echo-sample'
-            });
-        });
+            })
         })
         .catch(function (error) {
             console.log(error);
