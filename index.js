@@ -52,8 +52,8 @@ restService.post('/map', function(req, resp) {
                 {
                     label: speech.label,
                     value: speech.label,
-                    id: speech.id,
-                    type: speech.type
+                    id: parseInt(speech.id),
+                    type: parseInt(speech.type)
                 }
             ];
             parameters.TYPE = 1;
@@ -68,8 +68,14 @@ restService.post('/map', function(req, resp) {
                 '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
-
-                let $response = $(result.data);
+                console.log(configuration.fnaimUrlBuy +
+                    '?localites=' + parameters.localites +
+                    '&TYPE[]=' + parameters.TYPE +
+                    '&NB_PIECES[]=' + parameters.NB_PIECES +
+                    '&SURFACE_MIN=' + parameters.SURFACE_MIN +
+                    '&PRIX_MAX=' + parameters.PRIX_MAX +
+                    '&TRANSACTION=1&submit=Recherche');
+                let $response = $(result);
                 let data = {};
                 let finalData = [];
                 let resultats = $('.annonce_liste ul.liste li.item', $response);
