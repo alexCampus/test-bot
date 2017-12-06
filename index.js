@@ -78,9 +78,6 @@ restService.post('/map', function(req, resp) {
                     data = {
                         "title" : "No Result",
                         "image_url" : "https://i.vimeocdn.com/portrait/58832_300x300",
-                        "default_action": {
-                            "type": "web_url"
-                        }
                     };
 
                     finalData.push(data);
