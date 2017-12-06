@@ -77,12 +77,12 @@ restService.post('/map', function(req, resp) {
                     console.log('NO RESULT');
                     data =
                         {
-                            "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
-                        },
-                        {
                             "title": "Appartement 2 pièce(s) - 68m² - RIVES",
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020124-3230873T01.jpg",
+                        },
+                        {
+                            "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
+                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
                         },
                         {
                             "title": "Appartement 2 pièce(s) - 68m² - RIVES",
