@@ -48,15 +48,26 @@ restService.post('/map', function(req, resp) {
             // });
         })
         .then(function(speech){
-            parameters.localites = speech;
-            parameters.TYPE = req.body.result.contexts[0].parameters.GoodType[0];
+            parameters.localites = [
+                {
+                    label: speech.label,
+                    value: speech.label,
+                    id: speech.id,
+                    type: speech.type
+                }
+            ];
+            parameters.TYPE = 1;
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
             console.log(parameters);
-            axios.get(configuration.fnaimUrlBuy, {
-                params: parameters
-            }).then(function(result){
+            axios.get(configuration.fnaimUrlBuy +
+                '?localites=' + parameters.localites +
+                '&TYPE[]=' + parameters.TYPE +
+                '&NB_PIECES[]=' + parameters.NB_PIECES +
+                '&SURFACE_MIN=' + parameters.SURFACE_MIN +
+                '&PRIX_MAX=' + parameters.PRIX_MAX +
+                '&TRANSACTION=1&submit=Recherche').then(function(result){
 
                 let $response = $(result.data);
                 let data = {};
