@@ -62,14 +62,14 @@ restService.post('/map', function(req, resp) {
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
             console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
-                '?localites=[{label:' + speech.label + ',value:' + speech.label + ',id:' + parseInt(speech.id) + ',type:' + parseInt(speech.type) + '}]' +
+                '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                 '&TYPE[]=' + parameters.TYPE +
                 '&NB_PIECES[]=' + parameters.NB_PIECES +
                 '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
                 '&TRANSACTION=1&submit=Recherche').then(function(result){
                 console.log(configuration.fnaimUrlBuy +
-                    '?localites=[{label:' + speech.label + ',value:' + speech.label + ',id:' + parseInt(speech.id) + ',type:' + parseInt(speech.type) + '}]' +
+                    '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                     '&TYPE[]=' + parameters.TYPE +
                     '&NB_PIECES[]=' + parameters.NB_PIECES +
                     '&SURFACE_MIN=' + parameters.SURFACE_MIN +
