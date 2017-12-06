@@ -98,8 +98,7 @@ restService.post('/map', function(req, resp) {
                             data =
                                 {
                                     title: $('h3 a', this).html(),
-                                    image_url: $('.itemImage img', this).attr("src"),
-                                    url: $('h3 a', this).attr("href")
+                                    image_url: $('.itemImage img', this).attr("src")
                                 };
 
                             finalData.push(data);
