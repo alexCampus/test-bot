@@ -53,17 +53,18 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-
+            console.log(req.body.contexts[0]);
             if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
                 type = 2;
             } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
                 type = 1;
             }
-            
+
             parameters.TYPE = type;
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+            let transaction = 1;
             console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
                 '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
@@ -71,7 +72,8 @@ restService.post('/map', function(req, resp) {
                 '&NB_PIECES[]=' + parameters.NB_PIECES +
                 '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                 '&PRIX_MAX=' + parameters.PRIX_MAX +
-                '&TRANSACTION=1&submit=Recherche').then(function(result){
+                '&TRANSACTION=' + transaction +
+                '&submit=Recherche').then(function(result){
                 let $response = $(result.data);
                 let data;
                 let finalData = [];
