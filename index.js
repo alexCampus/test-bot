@@ -89,8 +89,8 @@ restService.post('/map', function(req, resp) {
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020020-3230871T01.jpg",
                         }];
 
-                    data.concat(finalData);
-                    console.log('finalData =>', finalData);
+                    //finalData.concat(data);
+                    console.log('finalData =>', data);
 
                 } else {
                     resultats.each(function (index) {
@@ -117,7 +117,7 @@ restService.post('/map', function(req, resp) {
                                     type: "template",
                                     payload: {
                                         template_type: "generic",
-                                        elements: finalData
+                                        elements: data
                                     }
                                 }
                             }
