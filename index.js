@@ -53,12 +53,13 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-            console.log(req.body.result.contexts[0].parameters);
-            if (req.body.result.contexts[0].parameters.GoodType === 'maison') {
+
+            if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
                 type = 2;
-            } else if (req.body.result.contexts[0].parameters.GoodType === 'appartement'){
+            } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
                 type = 1;
             }
+            
             parameters.TYPE = type;
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
