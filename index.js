@@ -97,7 +97,7 @@ restService.post('/map', function(req, resp) {
                                     image_url: $('.itemImage img', this).attr("src"),
                                     default_action: {
                                         type: "web_url",
-                                        url: $('h3 a', this).attr("href"),
+                                        url: "www.fnaim.fr",
                                         webview_height_ratio: "tall"
                                     }
                                 };
