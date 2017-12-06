@@ -78,8 +78,7 @@ restService.post('/map', function(req, resp) {
                     data =
                         {
                             "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
-                            "url": "/annonce-immobiliere/40538838/17-acheter-appartement-meylan-38240.htm"
+                            "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg"
                         };
 
                     finalData.push(data);
