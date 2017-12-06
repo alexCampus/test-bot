@@ -75,7 +75,7 @@ restService.post('/map', function(req, resp) {
                 console.log('RESULT =>', resultats.length);
                 if (resultats.length == 0) {
                     console.log('NO RESULT');
-                    data =
+                    data = [
                         {
                             "title": "Appartement 2 pièce(s) - 68m² - RIVES",
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020124-3230873T01.jpg",
@@ -87,9 +87,9 @@ restService.post('/map', function(req, resp) {
                         {
                             "title": "Appartement 2 pièce(s) - 68m² - RIVES",
                             "image_url": "http://images.fnaim.fr/images1/img39/905739020020-3230871T01.jpg",
-                        };
+                        }];
 
-                    finalData.push(data);
+                    finalData.concat(data);
                     console.log('finalData =>', finalData);
 
                 } else {
