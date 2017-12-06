@@ -79,16 +79,6 @@ restService.post('/map', function(req, resp) {
                             "title": "Appartement 2 pièce(s) - 41m² - MEYLAN",
                             "image_url": "http://images.fnaim.fr/images1/img39/905739050349-3328619T01.jpg",
                             "url": "/annonce-immobiliere/40538838/17-acheter-appartement-meylan-38240.htm"
-                        },
-                        {
-                            "title": "Appartement 2 pièce(s) - 68m² - RIVES",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739020124-3230873T01.jpg",
-                            "url": "/annonce-immobiliere/40538827/17-acheter-appartement-rives-38140.htm"
-                        },
-                        {
-                            "title": "Appartement 2 pièce(s) - 68m² - RIVES",
-                            "image_url": "http://images.fnaim.fr/images1/img39/905739020020-3230871T01.jpg",
-                            "url": "/annonce-immobiliere/40538826/17-acheter-appartement-rives-38140.htm"
                         };
 
                     finalData.push(data);
@@ -112,24 +102,24 @@ restService.post('/map', function(req, resp) {
                     })
                     // console.log('finalData =>', finalData);
                 }
-                resp.json({
-                    speech: 'ok',
-                    displayText: 'ok',
-                    data : {
-                        facebook :
-                            {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: finalData
-                                    }
+            })
+            resp.json({
+                speech: 'ok',
+                displayText: 'ok',
+                data : {
+                    facebook :
+                        {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: finalData
                                 }
                             }
-                    },
-                    source: 'webhook-echo-sample'
-                });
-            })
+                        }
+                },
+                source: 'webhook-echo-sample'
+            });
         })
         .catch(function (error) {
             console.log(error);
