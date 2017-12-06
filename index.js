@@ -53,7 +53,7 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-            console.log(req.body.contexts[0]);
+            console.log(req.body.result.contexts[0]);
             if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
                 type = 2;
             } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
