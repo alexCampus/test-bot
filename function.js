@@ -50,6 +50,31 @@ function getLocation(req)
     return speech;
 }
 
+function checkParametersForRequete(el)
+{
+    let parameters = {};
+    if (typeof el.parameters.GoodType === 'string') {
+        if (el.parameters.GoodType === 'appartement') {
+            parameters.type = 1;
+        } else if (el.parameters.GoodType === 'maison') {
+            parameters.type = 2;
+        }
+    } else {
+        if (el.parameters.GoodType[0] === 'appartement') {
+            parameters.type = 1;
+        } else if (el.parameters.GoodType[0] === 'maison') {
+            parameters.type = 2;
+        }
+    }
+
+    parameters.TYPE = parameters.type;
+    parameters.NB_PIECES = el.parameters.nbRoom;
+    parameters.SURFACE_MIN = el.parameters.minArea;
+    parameters.PRIX_MAX = el.parameters.maxPrice;
+
+    return parameters;
+}
+
 function getParametersForRequete(req, speech)
 {
     let parameters = {};
@@ -66,29 +91,29 @@ function getParametersForRequete(req, speech)
     data.forEach(function (el) {
 
         if (el.name === 'salestypelocation') {
-            console.log('INDEX =>', el);
             parameters.TRANSACTION = 2;
-            if (el.parameters.GoodType === 'maison') {
-                parameters.type = 2
-            } else if (el.parameters.GoodType === 'appartement') {
-                parameters.type = 1
-            }
-            parameters.TYPE = parameters.type;
-            parameters.NB_PIECES = el.parameters.nbRoom;
-            parameters.SURFACE_MIN = el.parameters.minArea;
-            parameters.PRIX_MAX = el.parameters.maxPrice;
+            checkParametersForRequete(el);
+            // if (el.parameters.GoodType === 'maison') {
+            //     parameters.type = 2
+            // } else if (el.parameters.GoodType === 'appartement') {
+            //     parameters.type = 1
+            // }
+            // parameters.TYPE = parameters.type;
+            // parameters.NB_PIECES = el.parameters.nbRoom;
+            // parameters.SURFACE_MIN = el.parameters.minArea;
+            // parameters.PRIX_MAX = el.parameters.maxPrice;
         } else if (el.name === 'salestypeachat-followup') {
-            console.log('INDEX =>', el);
             parameters.TRANSACTION = 1;
-            if (el.parameters.GoodType[0] === 'maison') {
-                parameters.type = 2
-            } else if (el.parameters.GoodType[0] === 'appartement') {
-                parameters.type = 1
-            }
-            parameters.TYPE = parameters.type;
-            parameters.NB_PIECES = el.parameters.nbRoom;
-            parameters.SURFACE_MIN = el.parameters.minArea;
-            parameters.PRIX_MAX = el.parameters.maxPrice;
+            checkParametersForRequete(el);
+            // if (el.parameters.GoodType[0] === 'maison') {
+            //     parameters.type = 2
+            // } else if (el.parameters.GoodType[0] === 'appartement') {
+            //     parameters.type = 1
+            // }
+            // parameters.TYPE = parameters.type;
+            // parameters.NB_PIECES = el.parameters.nbRoom;
+            // parameters.SURFACE_MIN = el.parameters.minArea;
+            // parameters.PRIX_MAX = el.parameters.maxPrice;
         }
     });
 
@@ -108,45 +133,6 @@ function requeteFnaim(req, resp)
         .then(function(speech){
             if (typeof speech === 'object'){
                 let parameters = getParametersForRequete(req, speech);
-                // let type = 1;
-                // let transaction = 1;
-                // let test = req.body.result.contexts;
-                // parameters.localites = [
-                //     {
-                //         label: speech.label,
-                //         value: speech.label,
-                //         id: parseInt(speech.id),
-                //         type: parseInt(speech.type)
-                //     }
-                // ];
-                // test.forEach(function (el) {
-                //
-                //     if (el.name === 'salestypelocation') {
-                //         console.log('INDEX =>', el);
-                //         transaction = 2;
-                //         if (el.parameters.GoodType === 'maison') {
-                //             type = 2
-                //         } else if (el.parameters.GoodType === 'appartement') {
-                //             type = 1
-                //         }
-                //         parameters.TYPE = type;
-                //         parameters.NB_PIECES = el.parameters.nbRoom;
-                //         parameters.SURFACE_MIN = el.parameters.minArea;
-                //         parameters.PRIX_MAX = el.parameters.maxPrice;
-                //     } else if (el.name === 'salestypeachat-followup') {
-                //         console.log('INDEX =>', el);
-                //         transaction = 1;
-                //         if (el.parameters.GoodType[0] === 'maison') {
-                //             type = 2
-                //         } else if (el.parameters.GoodType[0] === 'appartement') {
-                //             type = 1
-                //         }
-                //         parameters.TYPE = type;
-                //         parameters.NB_PIECES = el.parameters.nbRoom;
-                //         parameters.SURFACE_MIN = el.parameters.minArea;
-                //         parameters.PRIX_MAX = el.parameters.maxPrice;
-                //     }
-                // });
 
                 console.log(parameters);
                 axios.get(configuration.fnaimUrlBuy +
