@@ -45,6 +45,7 @@ restService.post('/map', function(req, resp) {
         })
         .then(function(speech){
             let type = 1;
+            let transaction = 1;
             let test = req.body.result.contexts;
             parameters.localites = [
                 {
@@ -57,6 +58,11 @@ restService.post('/map', function(req, resp) {
             console.log(test);
             test.forEach(function(el){
                 console.log('INDEX =>', el);
+                if (el.name === 'salestypelocation') {
+                    transaction = 2;
+                } else if (el.name === 'salestypeachat') {
+                    transaction = 1;
+                }
             })
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
             //     type = 2;
@@ -68,7 +74,6 @@ restService.post('/map', function(req, resp) {
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
             parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
             parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
-            let transaction = 1;
             console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
                 '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
