@@ -112,14 +112,14 @@ function checkResultats(resultats)
         ];
     } else {
         resultats.each(function (index) {
-            finalData.type = "template";
-            finalData.payload.template_type = "generic";
-            
+
+            finalData.template_type = "generic";
+
 
             if (index < 3) {
-                finalData.payload.elements.title = $('h3 a', this).html();
-                finalData.payload.elements.image_url = $('.itemImage img', this).attr("src");
-                finalData.payload.elements.default_action =
+                finalData.elements.title = $('h3 a', this).html();
+                finalData.elements.image_url = $('.itemImage img', this).attr("src");
+                finalData.elements.default_action =
                 {
                     type: "web_url",
                     url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
