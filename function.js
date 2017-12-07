@@ -91,44 +91,26 @@ function getParametersForRequete(req, speech)
     data.forEach(function (el) {
 
         if (el.name === 'salestypelocation') {
-            console.log('INDEX =>', el);
             parameters.TRANSACTION = 2;
             parameters = checkParametersForRequete(el);
-            // if (el.parameters.GoodType === 'maison') {
-            //     parameters.type = 2
-            // } else if (el.parameters.GoodType === 'appartement') {
-            //     parameters.type = 1
-            // }
-            // parameters.TYPE = parameters.type;
-            // parameters.NB_PIECES = el.parameters.nbRoom;
-            // parameters.SURFACE_MIN = el.parameters.minArea;
-            // parameters.PRIX_MAX = el.parameters.maxPrice;
+
         } else if (el.name === 'salestypeachat-followup') {
-            console.log('INDEX =>', el);
             parameters = checkParametersForRequete(el);
             parameters.TRANSACTION = 1;
-            // if (el.parameters.GoodType[0] === 'maison') {
-            //     parameters.type = 2
-            // } else if (el.parameters.GoodType[0] === 'appartement') {
-            //     parameters.type = 1
-            // }
-            // parameters.TYPE = parameters.type;
-            // parameters.NB_PIECES = el.parameters.nbRoom;
-            // parameters.SURFACE_MIN = el.parameters.minArea;
-            // parameters.PRIX_MAX = el.parameters.maxPrice;
+
         }
     });
 
     return parameters;
-
 }
+
 function requeteFnaim(req, resp)
 {
 
     let url = configuration.fnaimUrlBuy;
     var speech = getLocation(req);
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
-        .then(function (res){
+        .then(function(res){
             speech = searchLocalisation(res, resp);
             return speech;
         })
@@ -137,7 +119,7 @@ function requeteFnaim(req, resp)
                 let parameters = getParametersForRequete(req, speech);
 
                 console.log(parameters);
-                axios.get(configuration.fnaimUrlBuy +
+                axios.get(configuration.fnaimUrlLocate +
                     '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                     '&TYPE[]=' + parameters.TYPE +
                     '&NB_PIECES[]=' + parameters.NB_PIECES +
