@@ -2,7 +2,7 @@
 const jsdom = require("jsdom");
 const $ = require("jquery")(jsdom.jsdom().defaultView);
 
-function responseMessenger(resp) {
+function responseMessenger(resp, speech) {
     resp.json({
         speech: speech,
         displayText: speech,

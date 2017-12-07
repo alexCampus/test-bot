@@ -26,7 +26,7 @@ restService.post('/map', function(req, resp) {
             if (res.data[0].id == '') {
                 console.log('test if => ');
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-                return fonction.responseMessenger(resp);
+                return fonction.responseMessenger(resp, speech);
             } else {
                 console.log('test else');
                 speech = res.data[0];
