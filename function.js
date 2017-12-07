@@ -114,8 +114,8 @@ function checkResultats(resultats)
         resultats.each(function (index) {
             finalData.type = "template";
             finalData.payload.template_type = "generic";
-           finalData.payload.elements.title
-            let test = finalData.payload.elements;
+            
+
             if (index < 3) {
                 finalData.payload.elements.title = $('h3 a', this).html();
                 finalData.payload.elements.image_url = $('.itemImage img', this).attr("src");
