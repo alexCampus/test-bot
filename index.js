@@ -26,7 +26,7 @@ restService.post('/map', function(req, resp) {
             if (res.data[0].id == '') {
                 console.log('test if => ');
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-                return fonction.responseMessenger(resp, speech);
+                fonction.responseMessenger(resp, speech);
             } else {
                 console.log('test else');
                 speech = res.data[0];
@@ -124,23 +124,25 @@ restService.post('/map', function(req, resp) {
                     })
                     console.log('finalData =>', finalData);
                 }
-                resp.json({
-                    speech: 'ok',
-                    displayText: 'ok',
-                    data : {
-                        facebook :
-                            {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: finalData
-                                    }
-                                }
-                            }
-                    },
-                    source: 'webhook-echo-sample'
-                });
+                speech = ok;
+                fonction.responseMessenger(resp, speech);
+                // resp.json({
+                //     speech: 'ok',
+                //     displayText: 'ok',
+                //     data : {
+                //         facebook :
+                //             {
+                //                 attachment: {
+                //                     type: "template",
+                //                     payload: {
+                //                         template_type: "generic",
+                //                         elements: finalData
+                //                     }
+                //                 }
+                //             }
+                //     },
+                //     source: 'webhook-echo-sample'
+                // });
             });
         })
         .catch(function (error) {
