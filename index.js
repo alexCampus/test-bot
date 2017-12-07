@@ -45,6 +45,7 @@ restService.post('/map', function(req, resp) {
         })
         .then(function(speech){
             let type = 1;
+            let test = req.body.result.contexts;
             parameters.localites = [
                 {
                     label: speech.label,
@@ -54,7 +55,7 @@ restService.post('/map', function(req, resp) {
                 }
             ];
             console.log(req.body.result);
-            req.body.result.contexts.each(function(index){
+            test.each(function(index){
                 console.log('INDEX =>', index);
             })
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
