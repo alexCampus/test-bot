@@ -54,9 +54,9 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-            console.log(req.body.result);
-            test.each(function(index){
-                console.log('INDEX =>', index);
+            console.log(test);
+            test.forEach(function(el){
+                console.log('INDEX =>', el);
             })
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
             //     type = 2;
