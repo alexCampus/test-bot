@@ -56,8 +56,7 @@ function requeteFnaim(req, resp)
 
         })
         .then(function(speech){
-            console.log(typeof speech);
-            if (Array.isArray(speech)){
+            if (typeof speech === 'object'){
                 let type = 1;
                 let transaction = 1;
                 let test = req.body.result.contexts;
