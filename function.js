@@ -14,11 +14,15 @@ function responseMessenger(resp, speech, finalData)
                 facebook :
                     {
                         attachment: {
-                            type: "template",
-                            payload: {
-                                template_type: "generic",
-                                elements: finalData
-                            }
+                            template_type:"button",
+                            text:"What do you want to do next?",
+                            buttons:[
+                                {
+                                    type:"web_url",
+                                    url:"https://www.messenger.com",
+                                    title:"Visit Messenger"
+                                }
+                            ]
                         }
                     }
             },
@@ -113,7 +117,7 @@ function checkResultats(resultats)
     if (resultats.length == 0) {
         console.log('NO RESULT');
         data = {
-            title : "No Result",
+            title : "Que voulez vous Faire",
             image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
             default_action: {
                 type: "web_url",
