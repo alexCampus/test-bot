@@ -60,20 +60,35 @@ restService.post('/map', function(req, resp) {
                 console.log('INDEX =>', el);
                 if (el.name === 'salestypelocation') {
                     transaction = 2;
-                } else if (el.name === 'salestypeachat') {
+                    if (el.GoodType[0] === 'maison') {
+                        type = 2
+                    } else if (el.GoodType[0] === 'appartement') {
+                        type = 1
+                    }
+                    parameters.TYPE = type;
+                    parameters.NB_PIECES = el.nbRoom;
+                    parameters.SURFACE_MIN = el.minArea;
+                    parameters.PRIX_MAX = el.maxPrice;
+                } else if (el.name === 'salestypeachat-followup') {
                     transaction = 1;
+                    if (el.GoodType[0] === 'maison') {
+                        type = 2
+                    } else if (el.GoodType[0] === 'appartement') {
+                        type = 1
+                    }
+                    parameters.TYPE = type;
+                    parameters.NB_PIECES = el.nbRoom;
+                    parameters.SURFACE_MIN = el.minArea;
+                    parameters.PRIX_MAX = el.maxPrice;
                 }
-            })
+            });
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
             //     type = 2;
             // } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
             //     type = 1;
             // }
 
-            parameters.TYPE = type;
-            parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
-            parameters.SURFACE_MIN = req.body.result.contexts[0].parameters.minArea;
-            parameters.PRIX_MAX = req.body.result.contexts[0].parameters.maxPrice;
+
             console.log(parameters);
             axios.get(configuration.fnaimUrlBuy +
                 '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
