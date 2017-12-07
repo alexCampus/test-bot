@@ -72,9 +72,9 @@ restService.post('/map', function(req, resp) {
                 } else if (el.name === 'salestypeachat-followup') {
                     console.log('INDEX =>', el);
                     transaction = 1;
-                    if (el.parameters.GoodType === 'maison') {
+                    if (el.parameters.GoodType[0] === 'maison') {
                         type = 2
-                    } else if (el.parameters.GoodType === 'appartement') {
+                    } else if (el.parameters.GoodType[0] === 'appartement') {
                         type = 1
                     }
                     parameters.TYPE = type;
