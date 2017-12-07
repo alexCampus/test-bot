@@ -172,7 +172,7 @@ function requeteFnaimCheckLocalisation(req, resp)
         .then(function(speech){
             if (typeof speech === 'object'){
                 let parameters = getParametersForRequete(req, speech);
-                requeteFnaimGetResult(parameters, speech, req);
+                requeteFnaimGetResult(parameters, speech, resp);
                 console.log(parameters);
                 // axios.get(url +
                 //     '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
