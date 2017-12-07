@@ -119,7 +119,14 @@ function checkResultats(resultats)
                 type: "web_url",
                 url: "www.fnaim.fr",
                 webview_height_ratio: "tall"
-            }
+            },
+            buttons:[
+                {
+                    type:"web_url",
+                    url:"https://petersfancybrownhats.com",
+                    title:"View Website"
+                }
+            ]
         };
 
         finalData.push(data);
@@ -154,14 +161,15 @@ function requeteFnaimGetResult(parameters, speech, resp)
         '&SURFACE_MIN=' + parameters.SURFACE_MIN +
         '&PRIX_MAX=' + parameters.PRIX_MAX +
         '&TRANSACTION=' + parameters.TRANSACTION +
-        '&submit=Recherche').then(function(result){
-        let $response = $(result.data);
-        let resultats = $('.annonce_liste ul.liste li.item', $response);
-        let finalData = checkResultats(resultats);
+        '&submit=Recherche')
+        .then(function(result){
+            let $response = $(result.data);
+            let resultats = $('.annonce_liste ul.liste li.item', $response);
+            let finalData = checkResultats(resultats);
 
-        responseMessenger(resp, speech, finalData);
+             responseMessenger(resp, speech, finalData);
 
-    });
+        });
 }
 function requeteFnaimCheckLocalisation(req, resp)
 {
