@@ -44,58 +44,111 @@ function searchLocalisation(res, resp)
     }
     return speech;
 }
+function getLocation(req)
+{
+    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    return speech;
+}
+
+function getParametersForRequete(req, speech)
+{
+    let type;
+    let transaction;
+    let parameters = {};
+    let data = req.body.result.contexts;
+    parameters.localites = [
+        {
+            label: speech.label,
+            value: speech.label,
+            id: parseInt(speech.id),
+            type: parseInt(speech.type)
+        }
+    ];
+
+    data.forEach(function (el) {
+
+        if (el.name === 'salestypelocation') {
+            console.log('INDEX =>', el);
+            transaction = 2;
+            if (el.parameters.GoodType === 'maison') {
+                type = 2
+            } else if (el.parameters.GoodType === 'appartement') {
+                type = 1
+            }
+            parameters.TYPE = type;
+            parameters.NB_PIECES = el.parameters.nbRoom;
+            parameters.SURFACE_MIN = el.parameters.minArea;
+            parameters.PRIX_MAX = el.parameters.maxPrice;
+        } else if (el.name === 'salestypeachat-followup') {
+            console.log('INDEX =>', el);
+            transaction = 1;
+            if (el.parameters.GoodType[0] === 'maison') {
+                type = 2
+            } else if (el.parameters.GoodType[0] === 'appartement') {
+                type = 1
+            }
+            parameters.TYPE = type;
+            parameters.NB_PIECES = el.parameters.nbRoom;
+            parameters.SURFACE_MIN = el.parameters.minArea;
+            parameters.PRIX_MAX = el.parameters.maxPrice;
+        }
+    });
+
+    return parameters;
+
+}
 function requeteFnaim(req, resp)
 {
-    let parameters = {};
+
     let url = configuration.fnaimUrlBuy;
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    var speech = getLocation(req);
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function (res){
             speech = searchLocalisation(res, resp);
             return speech;
-
         })
         .then(function(speech){
             if (typeof speech === 'object'){
-                let type = 1;
-                let transaction = 1;
-                let test = req.body.result.contexts;
-                parameters.localites = [
-                    {
-                        label: speech.label,
-                        value: speech.label,
-                        id: parseInt(speech.id),
-                        type: parseInt(speech.type)
-                    }
-                ];
-                test.forEach(function (el) {
-
-                    if (el.name === 'salestypelocation') {
-                        console.log('INDEX =>', el);
-                        transaction = 2;
-                        if (el.parameters.GoodType === 'maison') {
-                            type = 2
-                        } else if (el.parameters.GoodType === 'appartement') {
-                            type = 1
-                        }
-                        parameters.TYPE = type;
-                        parameters.NB_PIECES = el.parameters.nbRoom;
-                        parameters.SURFACE_MIN = el.parameters.minArea;
-                        parameters.PRIX_MAX = el.parameters.maxPrice;
-                    } else if (el.name === 'salestypeachat-followup') {
-                        console.log('INDEX =>', el);
-                        transaction = 1;
-                        if (el.parameters.GoodType[0] === 'maison') {
-                            type = 2
-                        } else if (el.parameters.GoodType[0] === 'appartement') {
-                            type = 1
-                        }
-                        parameters.TYPE = type;
-                        parameters.NB_PIECES = el.parameters.nbRoom;
-                        parameters.SURFACE_MIN = el.parameters.minArea;
-                        parameters.PRIX_MAX = el.parameters.maxPrice;
-                    }
-                });
+                let parameters = getParametersForRequete(req, speech);
+                // let type = 1;
+                // let transaction = 1;
+                // let test = req.body.result.contexts;
+                // parameters.localites = [
+                //     {
+                //         label: speech.label,
+                //         value: speech.label,
+                //         id: parseInt(speech.id),
+                //         type: parseInt(speech.type)
+                //     }
+                // ];
+                // test.forEach(function (el) {
+                //
+                //     if (el.name === 'salestypelocation') {
+                //         console.log('INDEX =>', el);
+                //         transaction = 2;
+                //         if (el.parameters.GoodType === 'maison') {
+                //             type = 2
+                //         } else if (el.parameters.GoodType === 'appartement') {
+                //             type = 1
+                //         }
+                //         parameters.TYPE = type;
+                //         parameters.NB_PIECES = el.parameters.nbRoom;
+                //         parameters.SURFACE_MIN = el.parameters.minArea;
+                //         parameters.PRIX_MAX = el.parameters.maxPrice;
+                //     } else if (el.name === 'salestypeachat-followup') {
+                //         console.log('INDEX =>', el);
+                //         transaction = 1;
+                //         if (el.parameters.GoodType[0] === 'maison') {
+                //             type = 2
+                //         } else if (el.parameters.GoodType[0] === 'appartement') {
+                //             type = 1
+                //         }
+                //         parameters.TYPE = type;
+                //         parameters.NB_PIECES = el.parameters.nbRoom;
+                //         parameters.SURFACE_MIN = el.parameters.minArea;
+                //         parameters.PRIX_MAX = el.parameters.maxPrice;
+                //     }
+                // });
 
                 console.log(parameters);
                 axios.get(configuration.fnaimUrlBuy +
