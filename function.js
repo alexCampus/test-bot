@@ -39,7 +39,6 @@ function searchLocalisation(res, resp)
         speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
         responseMessenger(resp, speech, null);
     } else {
-        console.log('test else');
         speech = res.data[0];
         // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
     }
@@ -57,6 +56,7 @@ function requeteFnaim(req, resp)
 
         })
         .then(function(speech){
+            console.log(typeof speech);
             if (Array.isArray(speech)){
                 let type = 1;
                 let transaction = 1;
