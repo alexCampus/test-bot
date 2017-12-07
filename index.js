@@ -55,9 +55,10 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-            test.forEach(function(el){
-                console.log('INDEX =>', el);
+            test.forEach(function (el) {
+
                 if (el.name === 'salestypelocation') {
+                    console.log('INDEX =>', el);
                     transaction = 2;
                     if (el.GoodType === 'maison') {
                         type = 2
@@ -69,6 +70,7 @@ restService.post('/map', function(req, resp) {
                     parameters.SURFACE_MIN = el.minArea;
                     parameters.PRIX_MAX = el.maxPrice;
                 } else if (el.name === 'salestypeachat-followup') {
+                    console.log('INDEX =>', el);
                     transaction = 1;
                     if (el.GoodType[0] === 'maison') {
                         type = 2
