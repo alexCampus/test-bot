@@ -92,8 +92,8 @@ function getParametersForRequete(req, speech)
     data.forEach(function (el) {
 
         if (el.name === 'salestypelocation') {
-            parameters.TRANSACTION = 2;
             parameters = checkParametersForRequete(el);
+            parameters.TRANSACTION = 2;
 
         } else if (el.name === 'salestypeachat-followup') {
             parameters = checkParametersForRequete(el);
