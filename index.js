@@ -26,7 +26,7 @@ restService.post('/map', function(req, resp) {
             if (res.data[0].id == '') {
                 console.log('test if => ');
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-                fonction.responseMessenger(resp, speech);
+                fonction.responseMessenger(resp, speech, null);
             } else {
                 console.log('test else');
                 speech = res.data[0];
@@ -125,7 +125,7 @@ restService.post('/map', function(req, resp) {
                     console.log('finalData =>', finalData);
                 }
                 speech = ok;
-                fonction.responseMessenger(resp, speech);
+                fonction.responseMessenger(resp, speech, finalData);
                 // resp.json({
                 //     speech: 'ok',
                 //     displayText: 'ok',

@@ -2,8 +2,8 @@
 const jsdom = require("jsdom");
 const $ = require("jquery")(jsdom.jsdom().defaultView);
 
-function responseMessenger(resp, speech) {
-    if (speech = 'ok') {
+function responseMessenger(resp, speech, finalData) {
+    if (finalData != null) {
         resp.json({
             speech: 'ok',
             displayText: 'ok',
