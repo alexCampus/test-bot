@@ -91,8 +91,9 @@ function getParametersForRequete(req, speech)
     data.forEach(function (el) {
 
         if (el.name === 'salestypelocation') {
+            console.log('INDEX =>', el);
             parameters.TRANSACTION = 2;
-            checkParametersForRequete(el);
+            parameters = checkParametersForRequete(el);
             // if (el.parameters.GoodType === 'maison') {
             //     parameters.type = 2
             // } else if (el.parameters.GoodType === 'appartement') {
@@ -103,8 +104,9 @@ function getParametersForRequete(req, speech)
             // parameters.SURFACE_MIN = el.parameters.minArea;
             // parameters.PRIX_MAX = el.parameters.maxPrice;
         } else if (el.name === 'salestypeachat-followup') {
+            console.log('INDEX =>', el);
+            parameters = checkParametersForRequete(el);
             parameters.TRANSACTION = 1;
-            checkParametersForRequete(el);
             // if (el.parameters.GoodType[0] === 'maison') {
             //     parameters.type = 2
             // } else if (el.parameters.GoodType[0] === 'appartement') {
