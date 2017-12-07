@@ -124,7 +124,7 @@ restService.post('/map', function(req, resp) {
                     })
                     console.log('finalData =>', finalData);
                 }
-                speech = ok;
+                speech = 'ok';
                 fonction.responseMessenger(resp, speech, finalData);
                 // resp.json({
                 //     speech: 'ok',
