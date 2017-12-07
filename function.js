@@ -52,8 +52,6 @@ function getLocation(req)
 
 function getParametersForRequete(req, speech)
 {
-    let type;
-    let transaction;
     let parameters = {};
     let data = req.body.result.contexts;
     parameters.localites = [
@@ -69,25 +67,25 @@ function getParametersForRequete(req, speech)
 
         if (el.name === 'salestypelocation') {
             console.log('INDEX =>', el);
-            transaction = 2;
+            parameters.TRANSACTION = 2;
             if (el.parameters.GoodType === 'maison') {
-                type = 2
+                parameters.type = 2
             } else if (el.parameters.GoodType === 'appartement') {
-                type = 1
+                parameters.type = 1
             }
-            parameters.TYPE = type;
+            parameters.TYPE = parameters.type;
             parameters.NB_PIECES = el.parameters.nbRoom;
             parameters.SURFACE_MIN = el.parameters.minArea;
             parameters.PRIX_MAX = el.parameters.maxPrice;
         } else if (el.name === 'salestypeachat-followup') {
             console.log('INDEX =>', el);
-            transaction = 1;
+            parameters.TRANSACTION = 1;
             if (el.parameters.GoodType[0] === 'maison') {
-                type = 2
+                parameters.type = 2
             } else if (el.parameters.GoodType[0] === 'appartement') {
-                type = 1
+                parameters.type = 1
             }
-            parameters.TYPE = type;
+            parameters.TYPE = parameters.type;
             parameters.NB_PIECES = el.parameters.nbRoom;
             parameters.SURFACE_MIN = el.parameters.minArea;
             parameters.PRIX_MAX = el.parameters.maxPrice;
@@ -157,7 +155,7 @@ function requeteFnaim(req, resp)
                     '&NB_PIECES[]=' + parameters.NB_PIECES +
                     '&SURFACE_MIN=' + parameters.SURFACE_MIN +
                     '&PRIX_MAX=' + parameters.PRIX_MAX +
-                    '&TRANSACTION=' + transaction +
+                    '&TRANSACTION=' + parameters.TRANSACTION +
                     '&submit=Recherche').then(function(result){
                     let $response = $(result.data);
                     let data;
