@@ -11,10 +11,13 @@ function responseMessenger(resp, speech, finalData)
             speech: 'ok',
             displayText: 'ok',
             data : {
-                facebook :
-                    {
-                        attachment:  finalData
+                facebook : {
+                    attachment: {
+                        type: "template",
+                        payload: finalData
+
                     }
+                }
             },
             source: 'webhook-echo-sample'
         });
