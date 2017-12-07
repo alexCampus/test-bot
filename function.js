@@ -4,7 +4,8 @@ const $ = require("jquery")(jsdom.jsdom().defaultView);
 const configuration = require('./configuration.js');
 const axios = require('axios');
 
-function responseMessenger(resp, speech, finalData) {
+function responseMessenger(resp, speech, finalData)
+{
     if (finalData != null) {
         resp.json({
             speech: 'ok',
@@ -31,24 +32,37 @@ function responseMessenger(resp, speech, finalData) {
         });
     }
 }
-
-function requeteFnaim(req, resp) {
+function searchLocalisation(res)
+{
+    let speech;
+    if (res.data[0].id == '') {
+        speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
+        responseMessenger(resp, speech, null);
+    } else {
+        console.log('test else');
+        speech = res.data[0];
+        // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
+    }
+    return speech;
+}
+function requeteFnaim(req, resp)
+{
     let parameters = {};
     let url = configuration.fnaimUrlBuy;
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function (res){
-            console.log(res.data[0]);
-            if (res.data[0].id == '') {
-                console.log('test if => ');
-                speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-                responseMessenger(resp, speech, null);
-            } else {
-                console.log('test else');
-                speech = res.data[0];
-                // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
-            }
-            return speech;
+            searchLocalisation(res);
+            // if (res.data[0].id == '') {
+            //     console.log('test if => ');
+            //     speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
+            //     responseMessenger(resp, speech, null);
+            // } else {
+            //     console.log('test else');
+            //     speech = res.data[0];
+            //     // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
+            // }
+            // return speech;
 
         })
         .then(function(speech){
