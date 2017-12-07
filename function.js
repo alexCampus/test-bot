@@ -52,7 +52,7 @@ function requeteFnaim(req, resp)
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function (res){
-            searchLocalisation(res, resp);
+            speech = searchLocalisation(res, resp);
             // if (res.data[0].id == '') {
             //     console.log('test if => ');
             //     speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
@@ -66,6 +66,7 @@ function requeteFnaim(req, resp)
 
         })
         .then(function(speech){
+            console.log(speech);
             let type = 1;
             let transaction = 1;
             let test = req.body.result.contexts;
