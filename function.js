@@ -60,10 +60,12 @@ function checkParametersForRequete(el)
             parameters.type = 2;
         }
     } else {
-        if (el.parameters.GoodType[0] === 'appartement') {
-            parameters.type = 1;
-        } else if (el.parameters.GoodType[0] === 'maison') {
-            parameters.type = 2;
+        if (el.parameters.GoodType) {
+            if (el.parameters.GoodType[0] === 'appartement') {
+                parameters.type = 1;
+            } else if (el.parameters.GoodType[0] === 'maison') {
+                parameters.type = 2;
+            }
         }
     }
 
