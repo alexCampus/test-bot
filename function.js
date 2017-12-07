@@ -76,18 +76,11 @@ function checkParametersForRequete(el)
     return parameters;
 }
 
-function getParametersForRequete(req, speech)
+function getParametersForRequete(req)
 {
     let parameters = {};
     let data = req.body.result.contexts;
-    parameters.localites = [
-        {
-            label: speech.label,
-            value: speech.label,
-            id: parseInt(speech.id),
-            type: parseInt(speech.type)
-        }
-    ];
+
 
     data.forEach(function (el) {
 
@@ -101,7 +94,15 @@ function getParametersForRequete(req, speech)
 
         }
     });
-
+    // parameters.localites = [
+    //     {
+    //         label: speech.label,
+    //         value: speech.label,
+    //         id: parseInt(speech.id),
+    //         type: parseInt(speech.type)
+    //     }
+    // ];
+    //
     return parameters;
 }
 
@@ -145,6 +146,7 @@ function checkResultats(resultats)
 function requeteFnaimGetResult(parameters, speech, resp)
 {
     let url = configuration.fnaimUrlBuy;
+    console.log('speech =>',speech);
     axios.get(url +
         '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
         '&TYPE[]=' + parameters.TYPE +
@@ -164,7 +166,7 @@ function requeteFnaimGetResult(parameters, speech, resp)
 function requeteFnaimCheckLocalisation(req, resp)
 {
     var speech = getLocation(req);
-    console.log(speech);
+
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function(res){
             speech = searchLocalisation(res, resp);
