@@ -106,10 +106,63 @@ function getParametersForRequete(req, speech)
     return parameters;
 }
 
-function requeteFnaim(req, resp)
+function requeteFnaimGetResult(parameters, speech, resp)
 {
-
     let url = configuration.fnaimUrlBuy;
+    axios.get(url +
+        '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
+        '&TYPE[]=' + parameters.TYPE +
+        '&NB_PIECES[]=' + parameters.NB_PIECES +
+        '&SURFACE_MIN=' + parameters.SURFACE_MIN +
+        '&PRIX_MAX=' + parameters.PRIX_MAX +
+        '&TRANSACTION=' + parameters.TRANSACTION +
+        '&submit=Recherche').then(function(result){
+        let $response = $(result.data);
+        let data;
+        let finalData = [];
+        let resultats = $('.annonce_liste ul.liste li.item', $response);
+        // console.log('RESULT =>', resultats.length);
+        if (resultats.length == 0) {
+            console.log('NO RESULT');
+            data = {
+                title : "No Result",
+                image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
+                default_action: {
+                    type: "web_url",
+                    url: "www.fnaim.fr",
+                    webview_height_ratio: "tall"
+                }
+            };
+
+            finalData.push(data);
+            // console.log('finalData =>', finalData);
+
+        } else {
+            resultats.each(function (index) {
+                if (index < 3) {
+                    data =
+                        {
+                            title: $('h3 a', this).html(),
+                            image_url: $('.itemImage img', this).attr("src"),
+                            default_action: {
+                                type: "web_url",
+                                url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                                webview_height_ratio: "tall"
+                            }
+                        };
+
+                    finalData.push(data);
+                }
+            })
+            // console.log('finalData =>', speech);
+            // console.log('finalData =>', finalData);
+        }
+        responseMessenger(resp, speech, finalData);
+
+    });
+}
+function requeteFnaimCheckLocalisation(req, resp)
+{
     var speech = getLocation(req);
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function(res){
@@ -119,59 +172,59 @@ function requeteFnaim(req, resp)
         .then(function(speech){
             if (typeof speech === 'object'){
                 let parameters = getParametersForRequete(req, speech);
-
+                requeteFnaimGetResult(parameters, speech, req);
                 console.log(parameters);
-                axios.get(configuration.fnaimUrlBuy +
-                    '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
-                    '&TYPE[]=' + parameters.TYPE +
-                    '&NB_PIECES[]=' + parameters.NB_PIECES +
-                    '&SURFACE_MIN=' + parameters.SURFACE_MIN +
-                    '&PRIX_MAX=' + parameters.PRIX_MAX +
-                    '&TRANSACTION=' + parameters.TRANSACTION +
-                    '&submit=Recherche').then(function(result){
-                    let $response = $(result.data);
-                    let data;
-                    let finalData = [];
-                    let resultats = $('.annonce_liste ul.liste li.item', $response);
-                    console.log('RESULT =>', resultats.length);
-                    if (resultats.length == 0) {
-                        console.log('NO RESULT');
-                        data = {
-                            title : "No Result",
-                            image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
-                            default_action: {
-                                type: "web_url",
-                                url: "www.fnaim.fr",
-                                webview_height_ratio: "tall"
-                            }
-                        };
-
-                        finalData.push(data);
-                        console.log('finalData =>', finalData);
-
-                    } else {
-                        resultats.each(function (index) {
-                            if (index < 3) {
-                                data =
-                                    {
-                                        title: $('h3 a', this).html(),
-                                        image_url: $('.itemImage img', this).attr("src"),
-                                        default_action: {
-                                            type: "web_url",
-                                            url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-                                            webview_height_ratio: "tall"
-                                        }
-                                    };
-
-                                finalData.push(data);
-                            }
-                        })
-                        console.log('finalData =>', speech);
-                        console.log('finalData =>', finalData);
-                    }
-                    responseMessenger(resp, speech, finalData);
-
-                });
+                // axios.get(url +
+                //     '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
+                //     '&TYPE[]=' + parameters.TYPE +
+                //     '&NB_PIECES[]=' + parameters.NB_PIECES +
+                //     '&SURFACE_MIN=' + parameters.SURFACE_MIN +
+                //     '&PRIX_MAX=' + parameters.PRIX_MAX +
+                //     '&TRANSACTION=' + parameters.TRANSACTION +
+                //     '&submit=Recherche').then(function(result){
+                //     let $response = $(result.data);
+                //     let data;
+                //     let finalData = [];
+                //     let resultats = $('.annonce_liste ul.liste li.item', $response);
+                //     console.log('RESULT =>', resultats.length);
+                //     if (resultats.length == 0) {
+                //         console.log('NO RESULT');
+                //         data = {
+                //             title : "No Result",
+                //             image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
+                //             default_action: {
+                //                 type: "web_url",
+                //                 url: "www.fnaim.fr",
+                //                 webview_height_ratio: "tall"
+                //             }
+                //         };
+                //
+                //         finalData.push(data);
+                //         console.log('finalData =>', finalData);
+                //
+                //     } else {
+                //         resultats.each(function (index) {
+                //             if (index < 3) {
+                //                 data =
+                //                     {
+                //                         title: $('h3 a', this).html(),
+                //                         image_url: $('.itemImage img', this).attr("src"),
+                //                         default_action: {
+                //                             type: "web_url",
+                //                             url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                //                             webview_height_ratio: "tall"
+                //                         }
+                //                     };
+                //
+                //                 finalData.push(data);
+                //             }
+                //         })
+                //         console.log('finalData =>', speech);
+                //         console.log('finalData =>', finalData);
+                //     }
+                //     responseMessenger(resp, speech, finalData);
+                //
+                // });
             }
 
         })
@@ -181,6 +234,5 @@ function requeteFnaim(req, resp)
 }
 
 module.exports = $.extend({
-    responseMessenger,
-    requeteFnaim
+    requeteFnaimCheckLocalisation
 });
