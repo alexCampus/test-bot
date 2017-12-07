@@ -54,7 +54,7 @@ restService.post('/map', function(req, resp) {
                 }
             ];
             console.log(req.body.result);
-            req.body.result.each(function(index){
+            req.body.result.contexts.each(function(index){
                 console.log('INDEX =>', index);
             })
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
