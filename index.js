@@ -55,14 +55,13 @@ restService.post('/map', function(req, resp) {
                     type: parseInt(speech.type)
                 }
             ];
-            console.log(test);
             test.forEach(function(el){
                 console.log('INDEX =>', el);
                 if (el.name === 'salestypelocation') {
                     transaction = 2;
-                    if (el.GoodType[0] === 'maison') {
+                    if (el.GoodType === 'maison') {
                         type = 2
-                    } else if (el.GoodType[0] === 'appartement') {
+                    } else if (el.GoodType === 'appartement') {
                         type = 1
                     }
                     parameters.TYPE = type;
