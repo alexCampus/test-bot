@@ -8,7 +8,7 @@ const axios = require('axios');
 const restService = express();
 const jsdom = require("jsdom");
 const $ = require("jquery")(jsdom.jsdom().defaultView);
-
+const fonction = require('./function.js');
 
 restService.use(bodyParser.urlencoded({
     extended: true
@@ -26,11 +26,7 @@ restService.post('/map', function(req, resp) {
             if (res.data[0].id == '') {
                 console.log('test if => ');
                 speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-                return resp.json({
-                    speech: speech,
-                    displayText: speech,
-                    source: 'webhook-echo-sample'
-                });
+                return fonction.responseMessenger(resp);
             } else {
                 console.log('test else');
                 speech = res.data[0];
