@@ -44,7 +44,7 @@ restService.post('/map', function(req, resp) {
 
         })
         .then(function(speech){
-            let type;
+            let type = 1;
             parameters.localites = [
                 {
                     label: speech.label,
@@ -54,11 +54,14 @@ restService.post('/map', function(req, resp) {
                 }
             ];
             console.log(req.body.result);
-            if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
-                type = 2;
-            } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
-                type = 1;
-            }
+            req.body.result.each(function(index){
+                console.log('INDEX =>', index);
+            })
+            // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
+            //     type = 2;
+            // } else if (req.body.result.contexts[0].parameters.GoodType[0] === 'appartement'){
+            //     type = 1;
+            // }
 
             parameters.TYPE = type;
             parameters.NB_PIECES = req.body.result.contexts[0].parameters.nbRoom;
