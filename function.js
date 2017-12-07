@@ -98,22 +98,18 @@ function getParametersForRequete(req)
 function checkResultats(resultats)
 {
     let data;
-    let finalData = [];
+    let finalData = {};
     if (resultats.length == 0) {
         console.log('NO RESULT');
-        data = {
-            template_type:"button",
-            text:"What do you want to do next?",
-            buttons:[
-                {
-                    type:"web_url",
-                    url:"https://www.messenger.com",
-                    title:"Visit Messenger"
-                }
-            ]
-        };
-
-        finalData.push(data);
+        finalData.template_type = "button";
+        finalData.text = "What do you want to do next?";
+        finalData.buttons = [
+            {
+                type:"web_url",
+                url:"https://www.messenger.com",
+                title:"Visit Messenger"
+            }
+        ];
     } else {
         resultats.each(function (index) {
             finalData = {
