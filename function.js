@@ -32,7 +32,7 @@ function responseMessenger(resp, speech, finalData)
         });
     }
 }
-function searchLocalisation(res)
+function searchLocalisation(res, resp)
 {
     let speech;
     if (res.data[0].id == '') {
@@ -52,7 +52,7 @@ function requeteFnaim(req, resp)
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function (res){
-            searchLocalisation(res);
+            searchLocalisation(res, resp);
             // if (res.data[0].id == '') {
             //     console.log('test if => ');
             //     speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
