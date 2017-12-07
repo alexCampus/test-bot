@@ -55,21 +55,20 @@ function checkParametersForRequete(el)
     let parameters = {};
     if (typeof el.parameters.GoodType === 'string') {
         if (el.parameters.GoodType === 'appartement') {
-            parameters.type = 1;
+            parameters.TYPE = 1;
         } else if (el.parameters.GoodType === 'maison') {
-            parameters.type = 2;
+            parameters.TYPE = 2;
         }
     } else {
         if (el.parameters.GoodType) {
             if (el.parameters.GoodType[0] === 'appartement') {
-                parameters.type = 1;
+                parameters.TYPE = 1;
             } else if (el.parameters.GoodType[0] === 'maison') {
-                parameters.type = 2;
+                parameters.TYPE = 2;
             }
         }
     }
 
-    parameters.TYPE = parameters.type;
     parameters.NB_PIECES = el.parameters.nbRoom;
     parameters.SURFACE_MIN = el.parameters.minArea;
     parameters.PRIX_MAX = el.parameters.maxPrice;
@@ -157,38 +156,7 @@ function requeteFnaimGetResult(parameters, speech, resp)
         let $response = $(result.data);
         let resultats = $('.annonce_liste ul.liste li.item', $response);
         let finalData = checkResultats(resultats);
-        // console.log('RESULT =>', resultats.length);
-        // if (resultats.length == 0) {
-        //     console.log('NO RESULT');
-        //     data = {
-        //         title : "No Result",
-        //         image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
-        //         default_action: {
-        //             type: "web_url",
-        //             url: "www.fnaim.fr",
-        //             webview_height_ratio: "tall"
-        //         }
-        //     };
-        //
-        //     finalData.push(data);
-        // } else {
-        //     resultats.each(function (index) {
-        //         if (index < 3) {
-        //             data =
-        //                 {
-        //                     title: $('h3 a', this).html(),
-        //                     image_url: $('.itemImage img', this).attr("src"),
-        //                     default_action: {
-        //                         type: "web_url",
-        //                         url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-        //                         webview_height_ratio: "tall"
-        //                     }
-        //                 };
-        //
-        //             finalData.push(data);
-        //         }
-        //     })
-        // }
+
         responseMessenger(resp, speech, finalData);
 
     });
