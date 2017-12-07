@@ -13,20 +13,7 @@ function responseMessenger(resp, speech, finalData)
             data : {
                 facebook :
                     {
-                        attachment: {
-                            type: "template",
-                            payload: {
-                                template_type:"button",
-                                text:"What do you want to do next?",
-                                buttons:[
-                                    {
-                                        type:"web_url",
-                                        url:"https://www.messenger.com",
-                                        title:"Visit Messenger"
-                                    }
-                                ]
-                            }
-                        }
+                        attachment:  finalData
                     }
             },
             source: 'webhook-echo-sample'
@@ -101,15 +88,7 @@ function getParametersForRequete(req)
 
         }
     });
-    // parameters.localites = [
-    //     {
-    //         label: speech.label,
-    //         value: speech.label,
-    //         id: parseInt(speech.id),
-    //         type: parseInt(speech.type)
-    //     }
-    // ];
-    //
+
     return parameters;
 }
 
@@ -120,18 +99,13 @@ function checkResultats(resultats)
     if (resultats.length == 0) {
         console.log('NO RESULT');
         data = {
-            title : "Que voulez vous Faire",
-            image_url : "https://i.vimeocdn.com/portrait/58832_300x300",
-            default_action: {
-                type: "web_url",
-                url: "www.fnaim.fr",
-                webview_height_ratio: "tall"
-            },
+            template_type:"button",
+            text:"What do you want to do next?",
             buttons:[
                 {
                     type:"web_url",
-                    url:"https://petersfancybrownhats.com",
-                    title:"View Website"
+                    url:"https://www.messenger.com",
+                    title:"Visit Messenger"
                 }
             ]
         };
@@ -139,6 +113,13 @@ function checkResultats(resultats)
         finalData.push(data);
     } else {
         resultats.each(function (index) {
+            finalData = {
+                type: "template",
+                payload: {
+                    template_type: "generic"
+                }
+            };
+            let test = finalData.payload.elements;
             if (index < 3) {
                 data =
                     {
@@ -151,10 +132,11 @@ function checkResultats(resultats)
                         }
                     };
 
-                finalData.push(data);
+                test.push(data);
             }
         })
     }
+    console.log('FINAL DATA =>', finalData);
     return finalData;
 }
 function requeteFnaimGetResult(parameters, speech, resp)
