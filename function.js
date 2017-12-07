@@ -106,32 +106,25 @@ function checkResultats(resultats)
         finalData.buttons = [
             {
                 type:"web_url",
-                url:"https://www.fnaim.fr",
+                url:"http://www.fnaim.fr",
                 title:"Visit Fnaim Web Site"
             }
         ];
     } else {
         resultats.each(function (index) {
-            finalData = {
-                type: "template",
-                payload: {
-                    template_type: "generic"
-                }
-            };
+            finalData.type = "template";
+            finalData.payload.template_type = "generic";
+           finalData.payload.elements.title
             let test = finalData.payload.elements;
             if (index < 3) {
-                data =
-                    {
-                        title: $('h3 a', this).html(),
-                        image_url: $('.itemImage img', this).attr("src"),
-                        default_action: {
-                            type: "web_url",
-                            url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-                            webview_height_ratio: "tall"
-                        }
-                    };
-
-                test.push(data);
+                finalData.payload.elements.title = $('h3 a', this).html();
+                finalData.payload.elements.image_url = $('.itemImage img', this).attr("src");
+                finalData.payload.elements.default_action =
+                {
+                    type: "web_url",
+                    url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                    webview_height_ratio: "tall"
+                };
             }
         })
     }
