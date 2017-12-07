@@ -164,6 +164,7 @@ function requeteFnaimGetResult(parameters, speech, resp)
 function requeteFnaimCheckLocalisation(req, resp)
 {
     var speech = getLocation(req);
+    console.log(speech);
     axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
         .then(function(res){
             speech = searchLocalisation(res, resp);
@@ -172,8 +173,8 @@ function requeteFnaimCheckLocalisation(req, resp)
         .then(function(speech){
             if (typeof speech === 'object'){
                 let parameters = getParametersForRequete(req, speech);
+                console.log('PARAMETER =>', parameters);
                 requeteFnaimGetResult(parameters, speech, resp);
-                console.log(parameters);
             }
 
         })
