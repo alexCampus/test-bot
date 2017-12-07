@@ -1,6 +1,8 @@
 'use strict'
 const jsdom = require("jsdom");
 const $ = require("jquery")(jsdom.jsdom().defaultView);
+const configuration = require('./configuration.js');
+const axios = require('axios');
 
 function responseMessenger(resp, speech, finalData) {
     if (finalData != null) {
@@ -139,7 +141,7 @@ function requeteFnaim(req, resp) {
                     console.log('finalData =>', finalData);
                 }
                 responseMessenger(resp, speech, finalData);
-               
+
             });
         })
         .catch(function (error) {
