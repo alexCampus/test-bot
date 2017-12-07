@@ -102,12 +102,12 @@ function checkResultats(resultats)
     if (resultats.length == 0) {
         console.log('NO RESULT');
         finalData.template_type = "button";
-        finalData.text = "What do you want to do next?";
+        finalData.text = "Il n'y a aucun résultat correspondant à votre recherche. Si vous souhaitez chercher dans une autre localité, vous pouvez saisir votre recherche. Sinon vous pouvez revenir au menu en tapant Annuler";
         finalData.buttons = [
             {
                 type:"web_url",
-                url:"https://www.messenger.com",
-                title:"Visit Messenger"
+                url:"https://www.fnaim.fr",
+                title:"Visit Fnaim Web Site"
             }
         ];
     } else {
