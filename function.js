@@ -119,7 +119,7 @@ function requeteFnaim(req, resp)
                 let parameters = getParametersForRequete(req, speech);
 
                 console.log(parameters);
-                axios.get(configuration.fnaimUrlLocate +
+                axios.get(configuration.fnaimUrlBuy +
                     '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
                     '&TYPE[]=' + parameters.TYPE +
                     '&NB_PIECES[]=' + parameters.NB_PIECES +
@@ -164,6 +164,7 @@ function requeteFnaim(req, resp)
                                 finalData.push(data);
                             }
                         })
+                        console.log('finalData =>', speech);
                         console.log('finalData =>', finalData);
                     }
                     responseMessenger(resp, speech, finalData);
