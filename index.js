@@ -60,27 +60,27 @@ restService.post('/map', function(req, resp) {
                 if (el.name === 'salestypelocation') {
                     console.log('INDEX =>', el);
                     transaction = 2;
-                    if (el.GoodType === 'maison') {
+                    if (el.parameters.GoodType === 'maison') {
                         type = 2
-                    } else if (el.GoodType === 'appartement') {
+                    } else if (el.parameters.GoodType === 'appartement') {
                         type = 1
                     }
                     parameters.TYPE = type;
-                    parameters.NB_PIECES = el.nbRoom;
-                    parameters.SURFACE_MIN = el.minArea;
-                    parameters.PRIX_MAX = el.maxPrice;
+                    parameters.NB_PIECES = el.parameters.nbRoom;
+                    parameters.SURFACE_MIN = el.parameters.minArea;
+                    parameters.PRIX_MAX = el.parameters.maxPrice;
                 } else if (el.name === 'salestypeachat-followup') {
                     console.log('INDEX =>', el);
                     transaction = 1;
-                    if (el.GoodType[0] === 'maison') {
+                    if (el.parameters.GoodType === 'maison') {
                         type = 2
-                    } else if (el.GoodType[0] === 'appartement') {
+                    } else if (el.parameters.GoodType === 'appartement') {
                         type = 1
                     }
                     parameters.TYPE = type;
-                    parameters.NB_PIECES = el.nbRoom;
-                    parameters.SURFACE_MIN = el.minArea;
-                    parameters.PRIX_MAX = el.maxPrice;
+                    parameters.NB_PIECES = el.parameters.nbRoom;
+                    parameters.SURFACE_MIN = el.parameters.minArea;
+                    parameters.PRIX_MAX = el.parameters.maxPrice;
                 }
             });
             // if (req.body.result.contexts[0].parameters.GoodType[0] === 'maison') {
