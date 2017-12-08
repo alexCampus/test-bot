@@ -111,7 +111,10 @@ function checkResultats(resultats)
             }
         ];
     } else {
-        finalData.template_type = "generic";
+        finalData = {
+            template_type: "generic",
+            elements: {}
+        };
 
         resultats.each(function (index) {
             if (index < 3) {
