@@ -114,9 +114,9 @@ function checkResultats(resultats)
         resultats.each(function (index) {
             finalData.template_type = "generic";
             if (index < 3) {
-                data.elements.title = $('h3 a', this).html();
-                data.elements.image_url = $('.itemImage img', this).attr("src");
-                data.elements.default_action =
+                data['elements']['title']= $('h3 a', this).html();
+                data['elements']['image_url']= $('.itemImage img', this).attr("src");
+                data['elements']['default_action']=
                 {
                     type: "web_url",
                     url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
