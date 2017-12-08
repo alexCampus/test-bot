@@ -111,10 +111,9 @@ function checkResultats(resultats)
             }
         ];
     } else {
-        data = {
-            template_type: "generic"
-        };
-        finalData.push(data);
+
+        finalData.template_type = "generic";
+
         resultats.each(function (index) {
             if (index < 3) {
                 finalData.elements =
@@ -128,11 +127,11 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData.push(finalData['elements']);
+
             }
         })
     }
-    console.log('DATA =>', data);
+    // console.log('DATA =>', data);
     console.log('FINAL DATA =>', finalData);
     return finalData;
 }
