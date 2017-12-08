@@ -112,7 +112,7 @@ function checkResultats(resultats)
         ];
     } else {
         resultats.each(function (index) {
-            finalData.template_type = "generic";
+            data.template_type = "generic";
             if (index < 3) {
                 data.elements =
                 {
@@ -125,7 +125,7 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData.push(data);
+                finalData.join(data);
             }
         })
     }
