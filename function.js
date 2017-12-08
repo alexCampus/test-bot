@@ -20,7 +20,7 @@ function responseMessenger(resp, speech, finalData)
                         }
                     },
                     {
-                        text: "blabla"
+                        text: "que souhaitez vous faire maintenant ? une autre recherche ?"
                     }
                 ]
             },
