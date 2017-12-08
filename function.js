@@ -97,7 +97,7 @@ function getParametersForRequete(req)
 
 function checkResultats(resultats)
 {
-    let data = [];
+    let data;
     let finalData = [];
     if (resultats.length == 0) {
         console.log('NO RESULT');
@@ -111,10 +111,10 @@ function checkResultats(resultats)
             }
         ];
     } else {
-        data.template_type = "generic";
+        finalData.template_type = "generic";
         resultats.each(function (index) {
             if (index < 3) {
-                data.elements =
+                data['elements'] =
                 {
                     title: $('h3 a', this).html(),
                     image_url: $('.itemImage img', this).attr("src"),
