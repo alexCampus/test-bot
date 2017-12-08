@@ -98,7 +98,7 @@ function getParametersForRequete(req)
 function checkResultats(resultats)
 {
     let data = [];
-    let finalData = {};
+    let finalData = [];
     if (resultats.length == 0) {
         console.log('NO RESULT');
         finalData.template_type = "button";
@@ -125,7 +125,7 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData.join(data);
+                finalData.push(data);
             }
         })
     }
