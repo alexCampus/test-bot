@@ -98,7 +98,6 @@ function getParametersForRequete(req)
 function checkResultats(resultats)
 {
     let data;
-    let btn;
     let finalData = {};
     if (resultats.length == 0) {
 
@@ -115,7 +114,6 @@ function checkResultats(resultats)
 
         finalData.template_type = "generic";
         finalData.elements      = [];
-        finalData.buttons       = [];
         resultats.each(function (index) {
             if (index < 3) {
                 let img_url = $('.itemImage img', this).attr("src");
@@ -128,15 +126,15 @@ function checkResultats(resultats)
                         type                : "web_url",
                         url                 : 'www.fnaim.fr' + $('h3 a', this).attr("href"),
                         webview_height_ratio: "tall"
+                    },
+                    buttons: {
+                        "type":"web_url",
+                        "url":"https://petersfancybrownhats.com",
+                        "title":"View Website"
                     }
                 };
-                btn         = {
-                    "type":"web_url",
-                    "url":"https://petersfancybrownhats.com",
-                    "title":"View Website"
-                };
+
             finalData.elements.push(data);
-            finalData.buttons.push(btn);
             }
         })
     }
