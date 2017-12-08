@@ -113,24 +113,19 @@ function checkResultats(resultats)
     } else {
         resultats.each(function (index) {
             finalData.template_type = "generic";
-            let test = [];
-            console.log('FINAL DATA =>', finalData);
             if (index < 3) {
-                data =
-                    {
-                        title: $('h3 a', this).html(),
-                        image_url: $('.itemImage img', this).attr("src"),
-                        default_action: {
-                            type: "web_url",
-                            url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-                            webview_height_ratio: "tall"
-                        }
-                    };
+                data.elements.title = $('h3 a', this).html();
+                data.elements.image_url = $('.itemImage img', this).attr("src");
+                data.elements.default_action =
+                {
+                    type: "web_url",
+                    url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                    webview_height_ratio: "tall"
+                };
 
-                test.push(data);
+                finalData.push(data);
             }
         })
-        finalData.push(test);
     }
     console.log('FINAL DATA =>', finalData);
     return finalData;
