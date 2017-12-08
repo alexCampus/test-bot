@@ -112,10 +112,10 @@ function checkResultats(resultats)
         ];
     } else {
         finalData.template_type = "generic";
-        finalData['elements'] = {};
+
         resultats.each(function (index) {
             if (index < 3) {
-                data =
+                finalData['elements'] =
                 {
                     title: $('h3 a', this).html(),
                     image_url: $('.itemImage img', this).attr("src"),
@@ -126,7 +126,7 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData['elements'].push(data);
+                finalData.push(finalData['elements']);
             }
         })
     }
