@@ -111,11 +111,11 @@ function checkResultats(resultats)
             }
         ];
     } else {
-        finalData = {
+        data = {
             template_type: "generic",
             elements: {}
         };
-
+        finalData.push(data);
         resultats.each(function (index) {
             if (index < 3) {
                 finalData['elements'] =
