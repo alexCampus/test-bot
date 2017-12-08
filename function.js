@@ -13,14 +13,14 @@ function responseMessenger(resp, speech, finalData)
             data : {
                 facebook : [
                     {
-                        text: "blabla"
-                    },
-                    {
                         attachment: {
                             type: "template",
                             payload: finalData
 
                         }
+                    },
+                    {
+                        text: "blabla"
                     }
                 ]
             },
