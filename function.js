@@ -113,7 +113,7 @@ function checkResultats(resultats)
     } else {
         resultats.each(function (index) {
             finalData.template_type = "generic";
-
+            let test = [];
             console.log('FINAL DATA =>', finalData);
             if (index < 3) {
                 data =
