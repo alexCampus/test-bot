@@ -116,6 +116,8 @@ function checkResultats(resultats)
         finalData.elements = [];
         resultats.each(function (index) {
             if (index < 3) {
+                let img_url = $('.itemImage img', this).attr("src");
+                console.log(img_url.split(':'));
                 data =
                 {
                     title: $('h3 a', this).html(),
