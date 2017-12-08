@@ -95,25 +95,25 @@ function getParametersForRequete(req)
     return parameters;
 }
 
-function checkResultats(resultats)
+function checkResultats(resultats, parameters, speech)
 {
     let data;
     let finalData = {};
-    if (resultats.length == 0) {
 
+    if (resultats.length == 0) {
         finalData.template_type = "button";
-        finalData.text = "Il n'y a aucun résultat correspondant à votre recherche. Si vous souhaitez chercher dans une autre localité, vous pouvez saisir votre recherche. Sinon vous pouvez revenir au menu en tapant Annuler";
-        finalData.buttons = [
+        finalData.text          = "Il n'y a aucun résultat correspondant à votre recherche. Si vous souhaitez chercher dans une autre localité, vous pouvez saisir votre recherche. Sinon vous pouvez revenir au menu en tapant Annuler";
+        finalData.buttons       = [
             {
-                type:"web_url",
-                url:"http://www.fnaim.fr",
-                title:"Visit Fnaim Web Site"
+                type  :"web_url",
+                url   : configuration.fnaimUrl,
+                title :"Visit Fnaim Web Site"
             }
         ];
     } else {
-
         finalData.template_type = "generic";
         finalData.elements      = [];
+
         resultats.each(function (index) {
             if (index < 3) {
                 let img_url = $('.itemImage img', this).attr("src");
@@ -130,8 +130,14 @@ function checkResultats(resultats)
                     buttons: [
                         {
                             type  :"web_url",
-                            url   :"https://petersfancybrownhats.com",
-                            title :"View Website"
+                            url   : configuration.fnaimUrlBuy + '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
+                            '&TYPE[]=' + parameters.TYPE +
+                            '&NB_PIECES[]=' + parameters.NB_PIECES +
+                            '&SURFACE_MIN=' + parameters.SURFACE_MIN +
+                            '&PRIX_MAX=' + parameters.PRIX_MAX +
+                            '&TRANSACTION=' + parameters.TRANSACTION +
+                            '&submit=Recherche',
+                            title :"Voir toutes les Annonces"
                         }
                     ]
                 };
@@ -158,7 +164,7 @@ function requeteFnaimGetResult(parameters, speech, resp)
         .then(function(result){
             let $response = $(result.data);
             let resultats = $('.annonce_liste ul.liste li.item', $response);
-            let finalData = checkResultats(resultats);
+            let finalData = checkResultats(resultats, parameters, speech);
 
              responseMessenger(resp, speech, finalData);
 
