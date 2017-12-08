@@ -111,8 +111,8 @@ function checkResultats(resultats)
             }
         ];
     } else {
+        data.template_type = "generic";
         resultats.each(function (index) {
-            data.template_type = "generic";
             if (index < 3) {
                 data.elements =
                 {
