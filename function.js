@@ -8,7 +8,17 @@ function responseMessenger(resp, speech, finalData)
 {
     if (finalData != null) {
         resp.json({
-            speech: 'ok',
+            speech: "",
+            messages: [
+                {
+                    type: 0,
+                    speech: "my first response"
+                },
+                {
+                    type: 0,
+                    speech: "my second response"
+                }
+            ],
             displayText: 'ok',
             data : {
                 facebook : {
@@ -23,17 +33,7 @@ function responseMessenger(resp, speech, finalData)
         });
     } else {
         resp.json({
-            speech: "",
-            messages: [
-                {
-                    type: 0,
-                    speech: "my first response"
-                },
-                {
-                    type: 0,
-                    speech: "my second response"
-                }
-            ],
+            speech: speech,
             displayText: speech,
             source: 'webhook-echo-sample'
         });
