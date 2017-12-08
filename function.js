@@ -123,10 +123,10 @@ function checkResultats(resultats)
                 data =
                 {
                     title: $('h3 a', this).html(),
-                    image_url: $('.itemImage img', this).attr("src"),
+                    image_url: img_url,
                     default_action: {
                         type: "web_url",
-                        // url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                        url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
                         webview_height_ratio: "tall"
                     }
                 };
