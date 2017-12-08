@@ -118,7 +118,7 @@ function checkResultats(resultats)
             if (index < 3) {
                 let img_url = $('.itemImage img', this).attr("src");
                 let testUrl = img_url.split(':');
-                img_url = testUrl[0] === 'http' ? img_url : 'http://images.fnaim.fr' + img_url;
+                img_url = testUrl[0] === 'http' ? img_url : 'http://fnaim.fr' + img_url;
                 console.log(img_url);
                 data =
                 {
