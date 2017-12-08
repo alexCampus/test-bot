@@ -114,13 +114,15 @@ function checkResultats(resultats)
         resultats.each(function (index) {
             finalData.template_type = "generic";
             if (index < 3) {
-                data['elements']['title']= $('h3 a', this).html();
-                data['elements']['image_url']= $('.itemImage img', this).attr("src");
-                data['elements']['default_action']=
+                data.elements =
                 {
-                    type: "web_url",
-                    url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-                    webview_height_ratio: "tall"
+                    title: $('h3 a', this).html(),
+                    image_url: $('.itemImage img', this).attr("src"),
+                    default_action: {
+                        type: "web_url",
+                        url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                        webview_height_ratio: "tall"
+                    }
                 };
 
                 finalData.push(data);
