@@ -113,19 +113,19 @@ function checkResultats(resultats)
     } else {
 
         finalData.template_type = "generic";
-        finalData.elements = {};
+        finalData.elements = [];
         resultats.each(function (index) {
             if (index < 3) {
-                // finalData.elements =
-                // {
-                //     title: $('h3 a', this).html(),
-                //     image_url: $('.itemImage img', this).attr("src"),
-                //     default_action: {
-                //         type: "web_url",
-                //         url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
-                //         webview_height_ratio: "tall"
-                //     }
-                // };
+                finalData.elements =
+                {
+                    title: $('h3 a', this).html(),
+                    image_url: $('.itemImage img', this).attr("src"),
+                    default_action: {
+                        type: "web_url",
+                        url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
+                        webview_height_ratio: "tall"
+                    }
+                };
 
 
             }
