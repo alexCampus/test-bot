@@ -116,7 +116,7 @@ function checkResultats(resultats)
         finalData.elements = [];
         resultats.each(function (index) {
             if (index < 3) {
-                finalData.elements =
+                data =
                 {
                     title: $('h3 a', this).html(),
                     image_url: $('.itemImage img', this).attr("src"),
@@ -127,7 +127,7 @@ function checkResultats(resultats)
                     }
                 };
 
-
+            finalData.elements.push(data);
             }
         })
     }
