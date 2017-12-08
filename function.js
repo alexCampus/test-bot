@@ -112,13 +112,12 @@ function checkResultats(resultats)
         ];
     } else {
         data = {
-            template_type: "generic",
-            elements: {}
+            template_type: "generic"
         };
         finalData.push(data);
         resultats.each(function (index) {
             if (index < 3) {
-                finalData['elements'] =
+                finalData.elements =
                 {
                     title: $('h3 a', this).html(),
                     image_url: $('.itemImage img', this).attr("src"),
