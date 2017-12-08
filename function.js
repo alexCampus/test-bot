@@ -23,7 +23,17 @@ function responseMessenger(resp, speech, finalData)
         });
     } else {
         resp.json({
-            speech: speech,
+            speech: "",
+            messages: [
+                {
+                    type: 0,
+                    speech: "my first response"
+                },
+                {
+                    type: 0,
+                    speech: "my second response"
+                }
+            ],
             displayText: speech,
             source: 'webhook-echo-sample'
         });
