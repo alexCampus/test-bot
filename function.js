@@ -125,7 +125,7 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData.join(data);
+                finalData.concat(data);
             }
         })
     }
