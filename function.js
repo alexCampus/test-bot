@@ -117,7 +117,7 @@ function checkResultats(resultats)
         resultats.each(function (index) {
             if (index < 3) {
                 finalData.elements =
-                {
+                [
                     title: $('h3 a', this).html(),
                     image_url: $('.itemImage img', this).attr("src"),
                     default_action: {
@@ -125,7 +125,7 @@ function checkResultats(resultats)
                         url: 'www.fnaim.fr' + $('h3 a', this).attr("href"),
                         webview_height_ratio: "tall"
                     }
-                };
+                ];
 
 
             }
