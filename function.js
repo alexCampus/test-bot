@@ -117,8 +117,9 @@ function checkResultats(resultats)
         resultats.each(function (index) {
             if (index < 3) {
                 let img_url = $('.itemImage img', this).attr("src");
-                img_url = img_url.split(':');
-                console.log(img_url[0]);
+                let testUrl = img_url.split(':');
+                img_url = testUrl[0] === 'http' ? img_url : 'http://images.fnaim.fr' + img_url;
+                console.log(img_url);
                 data =
                 {
                     title: $('h3 a', this).html(),
