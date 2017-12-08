@@ -8,26 +8,21 @@ function responseMessenger(resp, speech, finalData)
 {
     if (finalData != null) {
         resp.json({
-            speech: "",
-            messages: [
-                {
-                    type: 0,
-                    speech: "my first response"
-                },
-                {
-                    type: 0,
-                    speech: "my second response"
-                }
-            ],
+            speech: 'ok',
             displayText: 'ok',
             data : {
-                facebook : {
-                    attachment: {
-                        type: "template",
-                        payload: finalData
+                facebook : [
+                    {
+                        text: "blabla"
+                    },
+                    {
+                        attachment: {
+                            type: "template",
+                            payload: finalData
 
+                        }
                     }
-                }
+                ]
             },
             source: 'webhook-echo-sample'
         });
