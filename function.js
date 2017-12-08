@@ -127,11 +127,13 @@ function checkResultats(resultats)
                         url                 : 'www.fnaim.fr' + $('h3 a', this).attr("href"),
                         webview_height_ratio: "tall"
                     },
-                    buttons: {
-                        "type":"web_url",
-                        "url":"https://petersfancybrownhats.com",
-                        "title":"View Website"
-                    }
+                    buttons: [
+                        {
+                            type  :"web_url",
+                            url   :"https://petersfancybrownhats.com",
+                            title :"View Website"
+                        }
+                    ]
                 };
 
             finalData.elements.push(data);
