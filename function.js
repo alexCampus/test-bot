@@ -97,7 +97,7 @@ function getParametersForRequete(req)
 
 function checkResultats(resultats)
 {
-    let data;
+    let data = [];
     let finalData = {};
     if (resultats.length == 0) {
         console.log('NO RESULT');
