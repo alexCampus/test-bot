@@ -100,7 +100,7 @@ function checkResultats(resultats)
     let data;
     let finalData = {};
     if (resultats.length == 0) {
-        console.log('NO RESULT');
+
         finalData.template_type = "button";
         finalData.text = "Il n'y a aucun résultat correspondant à votre recherche. Si vous souhaitez chercher dans une autre localité, vous pouvez saisir votre recherche. Sinon vous pouvez revenir au menu en tapant Annuler";
         finalData.buttons = [
@@ -126,19 +126,17 @@ function checkResultats(resultats)
                         webview_height_ratio: "tall"
                     }
                 };
-
             finalData.elements.push(data);
             }
         })
     }
-    // console.log('DATA =>', data);
-    console.log('FINAL DATA =>', finalData);
+
     return finalData;
 }
 function requeteFnaimGetResult(parameters, speech, resp)
 {
     let url = configuration.fnaimUrlBuy;
-    console.log('speech =>',speech);
+
     axios.get(url +
         '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
         '&TYPE[]=' + parameters.TYPE +
@@ -168,7 +166,7 @@ function requeteFnaimCheckLocalisation(req, resp)
         .then(function(speech){
             if (typeof speech === 'object'){
                 let parameters = getParametersForRequete(req, speech);
-                console.log('PARAMETER =>', parameters);
+
                 requeteFnaimGetResult(parameters, speech, resp);
             }
 
