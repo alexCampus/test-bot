@@ -125,10 +125,11 @@ function checkResultats(resultats)
                     }
                 };
 
-                finalData.concat(data);
+                finalData.push(data);
             }
         })
     }
+    console.log('DATA =>', data);
     console.log('FINAL DATA =>', finalData);
     return finalData;
 }
