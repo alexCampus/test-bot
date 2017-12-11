@@ -4,6 +4,16 @@ const $ = require("jquery")(jsdom.jsdom().defaultView);
 const configuration = require('./configuration.js');
 const axios = require('axios');
 
+function userInfoRequest(userId) {
+    axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + FB_PAGE_ACCESS_TOKEN)
+        .then(function(res){
+            console.log('userInfoRequest result: ', res.data);
+        })
+        .catch(function(error){
+            console.error('Error while userInfoRequest: ', error);
+        })
+}
+
 function responseMessenger(resp, speech, finalData)
 {
     if (finalData != null) {
