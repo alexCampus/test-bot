@@ -5,7 +5,7 @@ const configuration = require('./configuration.js');
 const axios = require('axios');
 
 function userInfoRequest(userId) {
-    axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + FB_PAGE_ACCESS_TOKEN)
+    axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAHDua4aSJABAHxgLlulhv2Ixu2r8KKFUcNvrt2FxGwZCu6VlpXOPMw4yAk4T9qrcHnjg5LZALF61HBNGArPrOGTtDCBBZAdjSUR1gbZCCorwcyf2iRHtbarKtTZCXcraNVYZAfbwuhuizKaZAZAZBbnoQbHd3xvacA9VPyJEZBOUyiAZDZD")
         .then(function(res){
             console.log('userInfoRequest result: ', res.data);
         })
@@ -214,5 +214,6 @@ function requeteFnaimCheckLocalisation(req, resp)
 }
 
 module.exports = $.extend({
+    userInfoRequest,
     requeteFnaimCheckLocalisation
 });
