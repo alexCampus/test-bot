@@ -85,6 +85,22 @@ function checkParametersForRequete(el)
             parameters.TYPE = 2;
         } else if (el.parameters.GoodType === 'terrain') {
             parameters.TYPE = 3;
+        } else if (el.parameters.GoodType[0] === 'parking') {
+            parameters.TYPE = 4;
+        } else if (el.parameters.GoodType[0] === 'fond de commerce') {
+            parameters.TYPE = 5;
+        } else if (el.parameters.GoodType[0] === 'local commercial') {
+            parameters.TYPE = 6;
+        } else if (el.parameters.GoodType[0] === 'bureau') {
+            parameters.TYPE = 7;
+        } else if (el.parameters.GoodType[0] === 'local industriel') {
+            parameters.TYPE = 8;
+        } else if (el.parameters.GoodType[0] === 'immeuble') {
+            parameters.TYPE = 9;
+        } else if (el.parameters.GoodType[0] === 'agricole') {
+            parameters.TYPE = 10;
+        } else if (el.parameters.GoodType[0] === 'foret') {
+            parameters.TYPE = 11;
         }
     } else {
         if (el.parameters.GoodType) {
