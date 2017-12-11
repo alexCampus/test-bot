@@ -12,10 +12,11 @@ restService.use(bodyParser.urlencoded({
 restService.use(bodyParser.json());
 
 restService.post('/map', function(req, resp) {
-    // console.log(req.IncomingMessage);
-    console.log(req.body.result.action);
-    fonction.userInfoRequest(req.body.originalRequest.data.sender.id);
-    fonction.requeteFnaimCheckLocalisation(req, resp);
+    if (req.body.result.action === 'input.welcome') {
+        fonction.userInfoRequest(resp, req.body.originalRequest.data.sender.id);
+    } else {
+        fonction.requeteFnaimCheckLocalisation(req, resp);
+    }
 });
 
 restService.listen((process.env.PORT || 8000), function() {
