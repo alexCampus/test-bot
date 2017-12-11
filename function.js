@@ -93,11 +93,36 @@ function checkParametersForRequete(el)
             } else if (el.parameters.GoodType[0] === 'maison') {
                 parameters.TYPE = 2;
             } else if (el.parameters.GoodType[0] === 'terrain') {
-                parameters.TYPE = 2;
+                parameters.TYPE = 3;
+            } else if (el.parameters.GoodType[0] === 'parking') {
+                parameters.TYPE = 4;
+            } else if (el.parameters.GoodType[0] === 'fond de commerce') {
+                parameters.TYPE = 5;
+            } else if (el.parameters.GoodType[0] === 'local commercial') {
+                parameters.TYPE = 6;
+            } else if (el.parameters.GoodType[0] === 'bureau') {
+                parameters.TYPE = 7;
+            } else if (el.parameters.GoodType[0] === 'local industriel') {
+                parameters.TYPE = 8;
+            } else if (el.parameters.GoodType[0] === 'immeuble') {
+                parameters.TYPE = 9;
+            } else if (el.parameters.GoodType[0] === 'agricole') {
+                parameters.TYPE = 10;
+            } else if (el.parameters.GoodType[0] === 'foret') {
+                parameters.TYPE = 11;
             }
         }
     }
-    if (parameters.TYPE = 3) {
+    if (parameters.TYPE = 3 ||
+        parameters.TYPE = 4 ||
+        parameters.TYPE = 5 ||
+        parameters.TYPE = 6 ||
+        parameters.TYPE = 7 ||
+        parameters.TYPE = 8 ||
+        parameters.TYPE = 9 ||
+        parameters.TYPE = 10 ||
+        parameters.TYPE = 11
+    ) {
         parameters.NB_PIECES   = 0;
     } else {
         parameters.NB_PIECES   = el.parameters.nbRoom;
