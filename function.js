@@ -77,6 +77,7 @@ function getParametersForRequete(req)
 function checkParametersForRequete(el)
 {
     let parameters = {};
+    console.log(el.parameters.GoodType);
     if (typeof el.parameters.GoodType === 'string') {
         if (el.parameters.GoodType === 'appartement') {
             parameters.TYPE = 1;
@@ -96,8 +97,12 @@ function checkParametersForRequete(el)
             }
         }
     }
+    if (parameters.TYPE = 3) {
+        parameters.NB_PIECES   = 0;
+    } else {
+        parameters.NB_PIECES   = el.parameters.nbRoom;
+    }
 
-    parameters.NB_PIECES   = el.parameters.nbRoom;
     parameters.SURFACE_MIN = el.parameters.minArea;
     parameters.PRIX_MAX    = el.parameters.maxPrice;
 
