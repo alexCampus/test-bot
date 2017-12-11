@@ -116,7 +116,7 @@ function checkResultats(resultats, parameters, speech)
             }
         ];
     } else {
-        finalData.template_type = "generic";
+        finalData.template_type = "list";
         finalData.elements      = [];
 
         resultats.each(function (index) {
