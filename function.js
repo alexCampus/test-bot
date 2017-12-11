@@ -20,7 +20,13 @@ function responseMessenger(resp, speech, finalData)
                         }
                     },
                     {
-                        text: "que souhaitez vous faire maintenant ? une autre recherche ?"
+                        text: "Que souhaitez vous faire maintenant ? une autre recherche pour un achat? une location?"
+                    },
+                    {
+                        text: "Une autre recherche pour un achat?"
+                    },
+                    {
+                        text: "Une location ?"
                     }
                 ]
             },
