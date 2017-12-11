@@ -77,58 +77,40 @@ function getParametersForRequete(req)
 function checkParametersForRequete(el)
 {
     let parameters = {};
+    let data;
     console.log(el.parameters.GoodType);
     if (typeof el.parameters.GoodType === 'string') {
-        if (el.parameters.GoodType === 'appartement') {
-            parameters.TYPE = 1;
-        } else if (el.parameters.GoodType === 'maison') {
-            parameters.TYPE = 2;
-        } else if (el.parameters.GoodType === 'terrain') {
-            parameters.TYPE = 3;
-        } else if (el.parameters.GoodType[0] === 'parking') {
-            parameters.TYPE = 4;
-        } else if (el.parameters.GoodType[0] === 'fond de commerce') {
-            parameters.TYPE = 5;
-        } else if (el.parameters.GoodType[0] === 'local commercial') {
-            parameters.TYPE = 6;
-        } else if (el.parameters.GoodType[0] === 'bureau') {
-            parameters.TYPE = 7;
-        } else if (el.parameters.GoodType[0] === 'local industriel') {
-            parameters.TYPE = 8;
-        } else if (el.parameters.GoodType[0] === 'immeuble') {
-            parameters.TYPE = 9;
-        } else if (el.parameters.GoodType[0] === 'agricole') {
-            parameters.TYPE = 10;
-        } else if (el.parameters.GoodType[0] === 'foret') {
-            parameters.TYPE = 11;
-        }
+        data = el.parameters.GoodType;
     } else {
         if (el.parameters.GoodType) {
-            if (el.parameters.GoodType[0] === 'appartement') {
-                parameters.TYPE = 1;
-            } else if (el.parameters.GoodType[0] === 'maison') {
-                parameters.TYPE = 2;
-            } else if (el.parameters.GoodType[0] === 'terrain') {
-                parameters.TYPE = 3;
-            } else if (el.parameters.GoodType[0] === 'parking') {
-                parameters.TYPE = 4;
-            } else if (el.parameters.GoodType[0] === 'fond de commerce') {
-                parameters.TYPE = 5;
-            } else if (el.parameters.GoodType[0] === 'local commercial') {
-                parameters.TYPE = 6;
-            } else if (el.parameters.GoodType[0] === 'bureau') {
-                parameters.TYPE = 7;
-            } else if (el.parameters.GoodType[0] === 'local industriel') {
-                parameters.TYPE = 8;
-            } else if (el.parameters.GoodType[0] === 'immeuble') {
-                parameters.TYPE = 9;
-            } else if (el.parameters.GoodType[0] === 'agricole') {
-                parameters.TYPE = 10;
-            } else if (el.parameters.GoodType[0] === 'foret') {
-                parameters.TYPE = 11;
-            }
+            data = el.parameters.GoodType[0];
         }
     }
+
+        if (data === 'appartement') {
+            parameters.TYPE = 1;
+        } else if (data === 'maison') {
+            parameters.TYPE = 2;
+        } else if (data === 'terrain') {
+            parameters.TYPE = 3;
+        } else if (data === 'parking') {
+            parameters.TYPE = 4;
+        } else if (data === 'fond de commerce') {
+            parameters.TYPE = 5;
+        } else if (data === 'local commercial') {
+            parameters.TYPE = 6;
+        } else if (data === 'bureau') {
+            parameters.TYPE = 7;
+        } else if (data === 'local industriel') {
+            parameters.TYPE = 8;
+        } else if (data === 'immeuble') {
+            parameters.TYPE = 9;
+        } else if (data === 'agricole') {
+            parameters.TYPE = 10;
+        } else if (data === 'foret') {
+            parameters.TYPE = 11;
+        }
+
     if (parameters.TYPE === 3 ||
         parameters.TYPE === 4 ||
         parameters.TYPE === 5 ||
