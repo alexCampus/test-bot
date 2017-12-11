@@ -7,7 +7,6 @@ const axios = require('axios');
 function userInfoRequest(resp, userId) {
     axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAHDua4aSJABAHxgLlulhv2Ixu2r8KKFUcNvrt2FxGwZCu6VlpXOPMw4yAk4T9qrcHnjg5LZALF61HBNGArPrOGTtDCBBZAdjSUR1gbZCCorwcyf2iRHtbarKtTZCXcraNVYZAfbwuhuizKaZAZAZBbnoQbHd3xvacA9VPyJEZBOUyiAZDZD")
         .then(function(res){
-            // console.log('userInfoRequest result: ', res.data);
             let speech = 'Bienvenue, ' + res.data.first_name + ' ' + res.data.last_name + ' que souhaites tu recherchez une Location ? Un Achat ?';
             responseMessenger(resp, speech, null);
         })
@@ -16,23 +15,111 @@ function userInfoRequest(resp, userId) {
         })
 }
 
+function requeteFnaimCheckLocalisation(req, resp)
+{
+    var speech = getLocation(req);
+
+    axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
+        .then(function(res){
+            speech = searchLocalisation(res, resp);
+            return speech;
+        })
+        .then(function(speech){
+            if (typeof speech === 'object'){
+                let parameters = getParametersForRequete(req, speech);
+
+                requeteFnaimGetResult(parameters, speech, resp);
+            }
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}
+
+function getLocation(req)
+{
+    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
+    return speech;
+}
+
+function searchLocalisation(res, resp)
+{
+    let speech;
+    if (res.data[0].id == '') {
+        speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
+        responseMessenger(resp, speech, null);
+    } else {
+        speech = res.data[0];
+    }
+    return speech;
+}
+
+function getParametersForRequete(req)
+{
+    let parameters = {};
+    let data = req.body.result.contexts;
+
+    data.forEach(function (el) {
+        if (el.name === 'salestypelocation') {
+            parameters             = checkParametersForRequete(el);
+            parameters.TRANSACTION = 2;
+
+        } else if (el.name === 'salestypeachat-followup') {
+            parameters             = checkParametersForRequete(el);
+            parameters.TRANSACTION = 1;
+        }
+    });
+
+    return parameters;
+}
+
+function checkParametersForRequete(el)
+{
+    let parameters = {};
+    if (typeof el.parameters.GoodType === 'string') {
+        if (el.parameters.GoodType === 'appartement') {
+            parameters.TYPE = 1;
+        } else if (el.parameters.GoodType === 'maison') {
+            parameters.TYPE = 2;
+        } else if (el.parameters.GoodType === 'terrain') {
+            parameters.TYPE = 3;
+        }
+    } else {
+        if (el.parameters.GoodType) {
+            if (el.parameters.GoodType[0] === 'appartement') {
+                parameters.TYPE = 1;
+            } else if (el.parameters.GoodType[0] === 'maison') {
+                parameters.TYPE = 2;
+            } else if (el.parameters.GoodType[0] === 'terrain') {
+                parameters.TYPE = 2;
+            }
+        }
+    }
+
+    parameters.NB_PIECES   = el.parameters.nbRoom;
+    parameters.SURFACE_MIN = el.parameters.minArea;
+    parameters.PRIX_MAX    = el.parameters.maxPrice;
+
+    return parameters;
+}
+
 function responseMessenger(resp, speech, finalData)
 {
     if (finalData != null) {
         resp.json({
-            speech: 'ok',
-            displayText: 'ok',
-            data : {
+            speech      : 'ok',
+            displayText : 'ok',
+            data        : {
                 facebook : [
                     {
                         attachment: {
-                            type: "template",
-                            payload: finalData
-
+                            type    : "template",
+                            payload : finalData
                         }
                     },
                     {
-                        text: "Que souhaitez vous faire maintenant ? une autre recherche pour un achat? une location?"
+                        text: "Que souhaitez vous faire maintenant ?"
                     },
                     {
                         text: "Une autre recherche pour un achat?"
@@ -46,76 +133,11 @@ function responseMessenger(resp, speech, finalData)
         });
     } else {
         resp.json({
-            speech: speech,
-            displayText: speech,
-            source: 'webhook-echo-sample'
+            speech      : speech,
+            displayText : speech,
+            source      : 'webhook-echo-sample'
         });
     }
-}
-function searchLocalisation(res, resp)
-{
-    let speech;
-    if (res.data[0].id == '') {
-        speech = "Désolé je n'ai pas compris votre recherche. Veuillez reformuler votre zone de recherche.";
-        responseMessenger(resp, speech, null);
-    } else {
-        speech = res.data[0];
-        // speech = 'Ok je lance la recherche pour un/une ' + req.body.result.contexts[4].parameters.GoodType[0] + ' de ' + req.body.result.contexts[4].parameters.nbRoom + ' pieces minimum avec une surface de ' + req.body.result.contexts[4].parameters.minArea + ' m2 et pour un prix maximum de ' + req.body.result.contexts[4].parameters.maxPrice + ' dans le secteur de ' + req.body.result.contexts[4].parameters.location;
-    }
-    return speech;
-}
-function getLocation(req)
-{
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
-    return speech;
-}
-
-function checkParametersForRequete(el)
-{
-    let parameters = {};
-    if (typeof el.parameters.GoodType === 'string') {
-        if (el.parameters.GoodType === 'appartement') {
-            parameters.TYPE = 1;
-        } else if (el.parameters.GoodType === 'maison') {
-            parameters.TYPE = 2;
-        }
-    } else {
-        if (el.parameters.GoodType) {
-            if (el.parameters.GoodType[0] === 'appartement') {
-                parameters.TYPE = 1;
-            } else if (el.parameters.GoodType[0] === 'maison') {
-                parameters.TYPE = 2;
-            }
-        }
-    }
-
-    parameters.NB_PIECES = el.parameters.nbRoom;
-    parameters.SURFACE_MIN = el.parameters.minArea;
-    parameters.PRIX_MAX = el.parameters.maxPrice;
-
-    return parameters;
-}
-
-function getParametersForRequete(req)
-{
-    let parameters = {};
-    let data = req.body.result.contexts;
-
-
-    data.forEach(function (el) {
-
-        if (el.name === 'salestypelocation') {
-            parameters = checkParametersForRequete(el);
-            parameters.TRANSACTION = 2;
-
-        } else if (el.name === 'salestypeachat-followup') {
-            parameters = checkParametersForRequete(el);
-            parameters.TRANSACTION = 1;
-
-        }
-    });
-
-    return parameters;
 }
 
 function checkResultats(resultats, parameters, speech)
@@ -188,32 +210,10 @@ function requeteFnaimGetResult(parameters, speech, resp)
             let $response = $(result.data);
             let resultats = $('.annonce_liste ul.liste li.item', $response);
             let finalData = checkResultats(resultats, parameters, speech);
-
-             responseMessenger(resp, speech, finalData);
-
+            responseMessenger(resp, speech, finalData);
         });
 }
-function requeteFnaimCheckLocalisation(req, resp)
-{
-    var speech = getLocation(req);
 
-    axios.get(configuration.fnaimUrlLocalization + '?term=' + speech)
-        .then(function(res){
-            speech = searchLocalisation(res, resp);
-            return speech;
-        })
-        .then(function(speech){
-            if (typeof speech === 'object'){
-                let parameters = getParametersForRequete(req, speech);
-
-                requeteFnaimGetResult(parameters, speech, resp);
-            }
-
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-}
 
 module.exports = $.extend({
     userInfoRequest,
