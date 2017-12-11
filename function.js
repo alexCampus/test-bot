@@ -113,15 +113,15 @@ function checkParametersForRequete(el)
             }
         }
     }
-    if (parameters.TYPE = 3 ||
-        parameters.TYPE = 4 ||
-        parameters.TYPE = 5 ||
-        parameters.TYPE = 6 ||
-        parameters.TYPE = 7 ||
-        parameters.TYPE = 8 ||
-        parameters.TYPE = 9 ||
-        parameters.TYPE = 10 ||
-        parameters.TYPE = 11
+    if (parameters.TYPE === 3 ||
+        parameters.TYPE === 4 ||
+        parameters.TYPE === 5 ||
+        parameters.TYPE === 6 ||
+        parameters.TYPE === 7 ||
+        parameters.TYPE === 8 ||
+        parameters.TYPE === 9 ||
+        parameters.TYPE === 10 ||
+        parameters.TYPE === 11
     ) {
         parameters.NB_PIECES   = 0;
     } else {
