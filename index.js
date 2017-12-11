@@ -13,7 +13,7 @@ restService.use(bodyParser.json());
 
 restService.post('/map', function(req, resp) {
     // console.log(req.IncomingMessage);
-    console.log(req.body.originalRequest.data.sender.id);
+    console.log(req.body.originalRequest);
     fonction.userInfoRequest(req.body.originalRequest.data.sender.id);
     fonction.requeteFnaimCheckLocalisation(req, resp);
 });
