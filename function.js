@@ -8,7 +8,7 @@ function userInfoRequest(resp, userId) {
     axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAHDua4aSJABAHxgLlulhv2Ixu2r8KKFUcNvrt2FxGwZCu6VlpXOPMw4yAk4T9qrcHnjg5LZALF61HBNGArPrOGTtDCBBZAdjSUR1gbZCCorwcyf2iRHtbarKtTZCXcraNVYZAfbwuhuizKaZAZAZBbnoQbHd3xvacA9VPyJEZBOUyiAZDZD")
         .then(function(res){
             // console.log('userInfoRequest result: ', res.data);
-            let speech = 'Bienvenue, ' + res.data.first_name + 'que souhaites tu recherchez une Location ? Un Achat ?';
+            let speech = 'Bienvenue, ' + res.data.first_name + ' ' + res.data.last_name + ' que souhaites tu recherchez une Location ? Un Achat ?';
             responseMessenger(resp, speech, null);
         })
         .catch(function(error){
