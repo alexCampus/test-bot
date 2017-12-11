@@ -12,7 +12,7 @@ restService.use(bodyParser.urlencoded({
 restService.use(bodyParser.json());
 
 restService.post('/map', function(req, resp) {
-    console.log(resp);
+    console.log(resp.body);
     fonction.requeteFnaimCheckLocalisation(req, resp);
 });
 
