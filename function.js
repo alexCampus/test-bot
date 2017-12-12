@@ -4,6 +4,7 @@ const $ = require("jquery")(jsdom.jsdom().defaultView);
 const configuration = require('./configuration.js');
 const axios = require('axios');
 
+//Recupère les information du client messenger (first name...)
 function userInfoRequest(resp, userId) {
     axios.get("https://graph.facebook.com/v2.6/" + userId + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAHDua4aSJABAHxgLlulhv2Ixu2r8KKFUcNvrt2FxGwZCu6VlpXOPMw4yAk4T9qrcHnjg5LZALF61HBNGArPrOGTtDCBBZAdjSUR1gbZCCorwcyf2iRHtbarKtTZCXcraNVYZAfbwuhuizKaZAZAZBbnoQbHd3xvacA9VPyJEZBOUyiAZDZD")
         .then(function(res){
@@ -15,6 +16,7 @@ function userInfoRequest(resp, userId) {
         })
 }
 
+//requete initial permettant de vérifier la localisation demandé par le client
 function requeteFnaimCheckLocalisation(req, resp)
 {
     var speech = getLocation(req);
@@ -37,12 +39,14 @@ function requeteFnaimCheckLocalisation(req, resp)
         })
 }
 
+//recupère la localisation demandé par le client
 function getLocation(req)
 {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.location ? req.body.result.parameters.location : "Seems like some problem. Speak again."
     return speech;
 }
 
+//extraction du resultat de la recherche de localisation
 function searchLocalisation(res, resp)
 {
     let speech;
@@ -55,6 +59,7 @@ function searchLocalisation(res, resp)
     return speech;
 }
 
+// Défini les parametres pour la requete de recherche sur la fnaim
 function getParametersForRequete(req)
 {
     let parameters = {};
@@ -74,6 +79,7 @@ function getParametersForRequete(req)
     return parameters;
 }
 
+// Défini les parametres pour la requete de recherche sur la fnaim
 function checkParametersForRequete(el)
 {
     let parameters = {};
@@ -132,6 +138,7 @@ function checkParametersForRequete(el)
     return parameters;
 }
 
+// Réponse envoyé à Dialogflow pour messenger
 function responseMessenger(resp, speech, finalData)
 {
     if (finalData != null) {
@@ -168,6 +175,7 @@ function responseMessenger(resp, speech, finalData)
     }
 }
 
+// Ecriture des résultats de la recherche selon les parametres donnés par le client
 function checkResultats(resultats, parameters, speech)
 {
     let data;
@@ -222,6 +230,8 @@ function checkResultats(resultats, parameters, speech)
 
     return finalData;
 }
+
+// Envoie de la requete a la Fnaim pour obtenir les resultats de la requete client
 function requeteFnaimGetResult(parameters, speech, resp)
 {
     let url = configuration.fnaimUrlBuy;
