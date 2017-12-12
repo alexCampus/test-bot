@@ -211,13 +211,7 @@ function checkResultats(resultats, parameters, speech)
                     buttons: [
                         {
                             type  :"web_url",
-                            url   : configuration.fnaimUrlBuy + '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
-                            '&TYPE[]=' + parameters.TYPE +
-                            '&NB_PIECES[]=' + parameters.NB_PIECES +
-                            '&SURFACE_MIN=' + parameters.SURFACE_MIN +
-                            '&PRIX_MAX=' + parameters.PRIX_MAX +
-                            '&TRANSACTION=' + parameters.TRANSACTION +
-                            '&submit=Recherche',
+                            url   : getUrlWithParameter(configuration.fnaimUrlBuy, speech, parameters),
                             title :"Voir toutes les Annonces"
                         }
                     ]
@@ -230,20 +224,22 @@ function checkResultats(resultats, parameters, speech)
 
     return finalData;
 }
-
-// Envoie de la requete a la Fnaim pour obtenir les resultats de la requete client
-function requeteFnaimGetResult(parameters, speech, resp)
+function getUrlWithParameter(url,speech, parameters)
 {
-    let url = configuration.fnaimUrlBuy;
-
-    axios.get(url +
-        '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
+    return url + '?localites=[{"label":"' + speech.label + '","value":"' + speech.label + '","id":"' + parseInt(speech.id) + '","type":"' + parseInt(speech.type) + '"}]' +
         '&TYPE[]=' + parameters.TYPE +
         '&NB_PIECES[]=' + parameters.NB_PIECES +
         '&SURFACE_MIN=' + parameters.SURFACE_MIN +
         '&PRIX_MAX=' + parameters.PRIX_MAX +
         '&TRANSACTION=' + parameters.TRANSACTION +
-        '&submit=Recherche')
+        '&submit=Recherche';
+}
+// Envoie de la requete a la Fnaim pour obtenir les resultats de la requete client
+function requeteFnaimGetResult(parameters, speech, resp)
+{
+    let url = configuration.fnaimUrlBuy;
+
+    axios.get(getUrlWithParameter(url, speech, parameters))
         .then(function(result){
             let $response = $(result.data);
             let resultats = $('.annonce_liste ul.liste li.item', $response);
